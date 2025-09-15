@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -18,18 +16,18 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject destroyEffect;
 
+    // Update is called once per frame
     void FixedUpdate()
     {
-        if (PlayerController.Instance.gameObject.activeSelf == true){
-            if (PlayerController.Instance.transform.position.x > transform.position.x)
-            {
+        if (PlayerController.Instance.gameObject.activeSelf){
+            // face the player
+            if (PlayerController.Instance.transform.position.x > transform.position.x){
                 spriteRenderer.flipX = true;
-            }
-            else
-            {
+            } else {
                 spriteRenderer.flipX = false;
             }
-            if (pushCounter <= 0){
+            // push back
+            if (pushCounter > 0){
                 pushCounter -= Time.deltaTime;
                 if (moveSpeed > 0){
                     moveSpeed = -moveSpeed;
@@ -38,31 +36,29 @@ public class Enemy : MonoBehaviour
                     moveSpeed = Mathf.Abs(moveSpeed);
                 }
             }
-
+            // move towards the player
             direction = (PlayerController.Instance.transform.position - transform.position).normalized;
             rb.velocity = new Vector2(direction.x * moveSpeed, direction.y * moveSpeed);
-            }else{
-                rb.velocity = Vector2.zero;
-            }
-
+        } else {
+            rb.velocity = Vector2.zero;
+        }
     }
 
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
+    void OnCollisionStay2D(Collision2D collision){
+        if (collision.gameObject.CompareTag("Player")){
             PlayerController.Instance.TakeDamage(damage);
         }
     }
 
-    public void TakeDamage (float damage){
+    public void TakeDamage(float damage){
         health -= damage;
-        DamageNumberController.Instance.CreateNumber (damage, transform.position);
+        DamageNumberController.Instance.CreateNumber(damage, transform.position);
         pushCounter = pushTime;
         if (health <= 0){
             Destroy(gameObject);
             Instantiate(destroyEffect, transform.position, transform.rotation);
-            PlayerController.Instance.GetExperience (experienceToGive);
+            PlayerController.Instance.GetExperience(experienceToGive);
+            AudioController.Instance.PlayModifiedSound(AudioController.Instance.enemyDie);
         }
     }
 }

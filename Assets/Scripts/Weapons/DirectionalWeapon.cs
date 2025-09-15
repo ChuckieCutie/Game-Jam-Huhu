@@ -1,8 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class AreaWeapon : Weapon
-{
+public class DirectionalWeapon : Weapon
+{   
     [SerializeField] private GameObject prefab;
     private float spawnCounter;
 
@@ -11,7 +10,9 @@ public class AreaWeapon : Weapon
         spawnCounter -= Time.deltaTime;
         if (spawnCounter <= 0){
             spawnCounter = stats[weaponLevel].cooldown;
-            Instantiate(prefab, transform.position, transform.rotation, transform);
+            for (int i = 0; i < stats[weaponLevel].amount; i++){
+                Instantiate(prefab, transform.position, transform.rotation, transform);
+            }
         }
     }
 }
