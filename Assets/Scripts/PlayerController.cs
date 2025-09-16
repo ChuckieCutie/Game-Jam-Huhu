@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float immunityTimer;
 
     public List<int> playerLevels;
+
+    public Vector3 mouseTargetingPosition;
     
     void Awake(){
         if (Instance != null && Instance != this){
@@ -52,16 +54,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
-        playerMoveDirection = new Vector3(inputX, inputY).normalized;
-
+        if ( Input.GetMouseButton(1)){
+            mouseTargetingPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mouseTargetingPosition.z = 0;
+            playerMoveDirection = (mouseTargetingPosition - transform.position).normalized;
+        }else{
+            playerMoveDirection = Vector3.zero;
+        }
         if (playerMoveDirection == Vector3.zero){
             animator.SetBool("moving", false);
         } else if (Time.timeScale != 0) {
             animator.SetBool("moving", true);
-            animator.SetFloat("moveX", inputX);
-            animator.SetFloat("moveY", inputY);
+            animator.SetFloat("moveX", playerMoveDirection.x);
+            animator.SetFloat("moveY", playerMoveDirection.y);
             lastMoveDirection = playerMoveDirection;
         }
 
