@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public static UIController Instance;
+    // KHÔNG CÓ DÒNG "public static UIController Instance;" thừa ở đây nữa
+
     [SerializeField] private Slider playerHealthSlider;
     [SerializeField] private TMP_Text healthText;
     [SerializeField] private Slider playerExperienceSlider;
@@ -16,11 +17,22 @@ public class UIController : MonoBehaviour
 
     public LevelUpButton[] levelUpButtons;
 
+    // ĐÂY LÀ ĐOẠN CODE SINGLETON ĐÃ ĐƯỢC SỬA LẠI CHO ĐÚNG CÚ PHÁP
+    private static UIController _instance;
+    public static UIController Instance {
+        get {
+            if (_instance == null) {
+                _instance = FindObjectOfType<UIController>();
+            }
+            return _instance;
+        }
+    }
+
     void Awake(){
-        if (Instance != null && Instance != this){
-            Destroy(this);
+        if (_instance != null && _instance != this){
+            Destroy(this.gameObject);
         } else {
-            Instance = this;
+            _instance = this;
         }
     }
 

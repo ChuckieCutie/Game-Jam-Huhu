@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float playerHealth;
 
     public int experience;
-    public int currentLevel;
+    public int currentLevel = 1;
     public int maxLevel;
 
     [SerializeField] private List<Weapon> inactiveWeapons;
