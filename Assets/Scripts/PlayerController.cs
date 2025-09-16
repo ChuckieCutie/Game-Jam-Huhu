@@ -19,6 +19,21 @@ public class PlayerController : MonoBehaviour
     public int currentLevel = 1;
     public int maxLevel;
 
+    public float wCooldown = 5f;
+    public float eCooldown = 8f;
+    public float rCooldown = 10f;
+    public float tCooldown = 60f; 
+    public float spaceCooldown = 3f; 
+
+    private float wCooldownTimer = 0f;
+    private float eCooldownTimer = 0f;
+    private float rCooldownTimer = 0f;
+    private float tCooldownTimer = 0f;
+    private float spaceCooldownTimer = 0f;
+
+    public float qAttackResetTime = 0.5f; 
+    private float qAttackTimer = 0f;
+
     [SerializeField] private List<Weapon> inactiveWeapons;
     public List<Weapon> activeWeapons;
     [SerializeField] private List<Weapon> upgradeableWeapons;
@@ -75,7 +90,59 @@ public class PlayerController : MonoBehaviour
         } else {
             isImmune = false;
         }
+
+        if (wCooldownTimer > 0) wCooldownTimer -= Time.deltaTime;
+        if (eCooldownTimer > 0) eCooldownTimer -= Time.deltaTime;
+        if (rCooldownTimer > 0) rCooldownTimer -= Time.deltaTime;
+        if (tCooldownTimer > 0) tCooldownTimer -= Time.deltaTime;
+        if (spaceCooldownTimer > 0) spaceCooldownTimer -= Time.deltaTime;
+        if (qAttackTimer > 0) qAttackTimer -= Time.deltaTime;
+
+        // Đánh thường (Q) - Không có cooldown, chỉ có reset timer
+        if (Input.GetKeyDown(KeyCode.Q) && qAttackTimer <= 0)
+        {
+            PerformNormalAttack(); // Gọi hàm thực hiện đòn đánh
+            qAttackTimer = qAttackResetTime; // Reset lại timer cho đòn đánh tiếp theo
+        }
+
+        // Kỹ năng W - Có cooldown
+        if (Input.GetKeyDown(KeyCode.W) && wCooldownTimer <= 0)
+        {
+            PerformWSkill(); // Gọi hàm thực hiện kỹ năng W
+            wCooldownTimer = wCooldown; // Bắt đầu đếm ngược cooldown
+        }
+
+        // Kỹ năng E - Có cooldown
+        if (Input.GetKeyDown(KeyCode.E) && eCooldownTimer <= 0)
+        {
+            PerformESkill();
+            eCooldownTimer = eCooldown;
+        }
+
+        // Kỹ năng R - Có cooldown
+        if (Input.GetKeyDown(KeyCode.R) && rCooldownTimer <= 0)
+        {
+            PerformRSkill();
+            rCooldownTimer = rCooldown;
+        }
+
+        // Ultimate (T) - Có cooldown
+        if (Input.GetKeyDown(KeyCode.T) && tCooldownTimer <= 0)
+        {
+            PerformTSkill_Ultimate();
+            tCooldownTimer = tCooldown;
+        }
+
+        // Lộn mèo/Lướt (Space) - Có cooldown
+        if (Input.GetKeyDown(KeyCode.Space) && spaceCooldownTimer <= 0)
+        {
+            PerformDodge();
+            spaceCooldownTimer = spaceCooldown;
+        }
+
     }
+
+    
 
     void FixedUpdate(){
         rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed);
@@ -155,4 +222,42 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.LevelUpPanelClose();
         AudioController.Instance.PlaySound(AudioController.Instance.selectUpgrade);
     }
+
+    void PerformNormalAttack()
+        {
+            Debug.Log("Thực hiện đòn đánh thường (Q)!");
+            // Thêm logic tấn công của bạn ở đây.
+            // Ví dụ: kích hoạt animation, tạo ra một vũ khí/đạn...
+        }
+
+    void PerformWSkill()
+        {
+            Debug.Log("Sử dụng kỹ năng W!");
+            // Logic cho kỹ năng W
+        }
+
+    void PerformESkill()
+        {
+            Debug.Log("Sử dụng kỹ năng E!");
+            // Logic cho kỹ năng E
+        }
+
+    void PerformRSkill()
+        {
+            Debug.Log("Sử dụng kỹ năng R!");
+            // Logic cho kỹ năng R
+        }
+
+    void PerformTSkill_Ultimate()
+        {
+            Debug.Log("Sử dụng ULTIMATE (T)!");
+            // Logic cho kỹ năng Ultimate
+        }
+
+    void PerformDodge()
+        {
+            Debug.Log("Lộn mèo/Lướt (Space)!");
+            // Logic cho việc di chuyển lướt.
+            // Ví dụ: thay đổi nhanh vị trí của nhân vật bằng transform.position hoặc Rigidbody2D.velocity
+}
 }
