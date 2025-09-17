@@ -860,7 +860,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: 0
   stats:
-  - cooldown: 5
+  - cooldown: 0
     duration: 3
     damage: 1
     range: 0.7

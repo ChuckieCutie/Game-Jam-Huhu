@@ -56,8 +56,14 @@ public class PlayerController : MonoBehaviour
         playerHealth = playerMaxHealth;
         UIController.Instance.UpdateHealthSlider();
         UIController.Instance.UpdateExperienceSlider();
-        AddWeapon(Random.Range(0, inactiveWeapons.Count));
         targetPosition = transform.position;
+
+        if (directionalWeapon != null && !activeWeapons.Contains(directionalWeapon)){
+            activeWeapons.Add(directionalWeapon);
+            directionalWeapon.gameObject.SetActive(true);
+
+        if (inactiveWeapons.Contains(directionalWeapon)){
+            inactiveWeapons.Remove(directionalWeapon);}}
     }
 
     void Update()
@@ -93,15 +99,15 @@ public class PlayerController : MonoBehaviour
         if (directionalWeaponCooldown > 0) directionalWeaponCooldown -= Time.deltaTime;
         if (spinWeaponCooldown > 0) spinWeaponCooldown -= Time.deltaTime;
 
-        // Phím Q cho Area Weapon
-        if (Input.GetKeyDown(KeyCode.Q) && areaWeapon != null && areaWeaponCooldown <= 0)
+        // Phím w cho Area Weapon
+        if (Input.GetKeyDown(KeyCode.W) && areaWeapon != null && areaWeaponCooldown <= 0)
         {
             areaWeapon.ActivateWeapon();
             areaWeaponCooldown = areaWeapon.stats[areaWeapon.weaponLevel].cooldown; // Đặt lại thời gian hồi chiêu
         }
 
         // Phím W cho Directional Weapon
-        if (Input.GetKeyDown(KeyCode.W) && directionalWeapon != null && directionalWeaponCooldown <= 0)
+        if (Input.GetKeyDown(KeyCode.Q) && directionalWeapon != null && directionalWeaponCooldown <= 0)
         {
             directionalWeapon.ActivateWeapon();
             directionalWeaponCooldown = directionalWeapon.stats[directionalWeapon.weaponLevel].cooldown;
@@ -115,7 +121,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // } // Dòng này bị thừa, tôi đã xóa nó
     void FixedUpdate(){
         rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed);
     }
@@ -145,7 +150,6 @@ public class PlayerController : MonoBehaviour
         experience -= playerLevels[currentLevel - 1];
         currentLevel++;
         UIController.Instance.UpdateExperienceSlider();
-        //UIController.Instance.levelUpButtons[0].ActivateButton(activeWeapon);
 
         upgradeableWeapons.Clear();
 
