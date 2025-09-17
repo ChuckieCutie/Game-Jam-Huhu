@@ -860,83 +860,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: 0
   stats:
-  - cooldown: 0
-    duration: 3
-    damage: 1
+  - cooldown: 4
+    duration: 1
+    damage: 3
     range: 0.7
     speed: 0.5
     amount: 0
     description: Damage +1
-  - cooldown: 5
-    duration: 3
-    damage: 2
-    range: 0.7
-    speed: 0.5
-    amount: 0
-    description: Increased range
-  - cooldown: 5
-    duration: 3
-    damage: 2
-    range: 1
-    speed: 0.5
-    amount: 0
-    description: Faster damage
-  - cooldown: 5
-    duration: 3
-    damage: 2
-    range: 1
-    speed: 0.4
-    amount: 0
-    description: Increased range
-  - cooldown: 5
-    duration: 3
-    damage: 2
-    range: 1.2
-    speed: 0.4
-    amount: 0
-    description: Damage +1
-  - cooldown: 5
-    duration: 3
-    damage: 3
-    range: 1.2
-    speed: 0.4
-    amount: 0
-    description: Reduce cooldown
-  - cooldown: 4
-    duration: 3
-    damage: 3
-    range: 1.2
-    speed: 0.4
-    amount: 0
-    description: Increased range
-  - cooldown: 4
-    duration: 3
-    damage: 3
-    range: 1.4
-    speed: 0.4
-    amount: 0
-    description: Faster damage
-  - cooldown: 4
-    duration: 3
-    damage: 3
-    range: 1.4
-    speed: 0.3
-    amount: 0
-    description: Increased range
-  - cooldown: 4
-    duration: 3
-    damage: 3
-    range: 1.6
-    speed: 0.3
-    amount: 0
-    description: Damage + 1
-  - cooldown: 4
-    duration: 3
-    damage: 4
-    range: 1.6
-    speed: 0.3
-    amount: 0
-    description: Final
   weaponImage: {fileID: 2781533676904308770, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Hungry shadow follows you around
   prefab: {fileID: 3260703539074801876, guid: 8a0af0142b3e0ed42a46858c826bc970, type: 3}
@@ -1074,6 +1004,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312581860}
   m_CullTransparentMesh: 1
+--- !u!1 &364913361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 364913363}
+  - component: {fileID: 364913362}
+  m_Layer: 6
+  m_Name: Bounce Ball Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &364913362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364913361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9e7c8c46ccea6446871bef0d1d2b85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponLevel: 0
+  stats:
+  - cooldown: 0
+    duration: 1
+    damage: 2
+    range: 3
+    speed: 2
+    amount: 1
+    description: 
+  weaponImage: {fileID: 740078143, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
+  basicDescription: "Bay b\u1ED5ng"
+  prefab: {fileID: 4616136610190095746, guid: 526fe538f2f1c81409eafdf3764803ac, type: 3}
+--- !u!4 &364913363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 364913361}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1774704217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &365602702
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,6 +3371,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 791731376}
   m_CullTransparentMesh: 1
+--- !u!1 &809922369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 809922370}
+  - component: {fileID: 809922371}
+  m_Layer: 6
+  m_Name: SlowTrap Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &809922370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809922369}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1774704217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &809922371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809922369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c31d57d0f5fbf44697ba1b454fe21ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponLevel: 0
+  stats:
+  - cooldown: 0
+    duration: 3
+    damage: 3
+    range: 2
+    speed: 1
+    amount: 1
+    description: 
+  weaponImage: {fileID: -1822811771, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
+  basicDescription: SLow dowm the enemy
+  prefab: {fileID: 8384538471753497255, guid: 2e07b73332366964ebd6ad5c032af12e, type: 3}
 --- !u!1 &826097110
 GameObject:
   m_ObjectHideFlags: 0
@@ -49437,83 +49479,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: 0
   stats:
-  - cooldown: 0.9
+  - cooldown: 0
     duration: 4
-    damage: 4
+    damage: 2.5
     range: 1
     speed: 6
-    amount: 1
-    description: 2 balls
-  - cooldown: 0.9
+    amount: 2
+    description: 'level 1: 2.5 dmg'
+  - cooldown: 0
+    duration: 4
+    damage: 3
+    range: 1
+    speed: 6
+    amount: 2
+    description: +0.5dmg
+  - cooldown: 0
+    duration: 4
+    damage: 3.5
+    range: 1
+    speed: 6
+    amount: 2
+    description: +0.5 dmg
+  - cooldown: 0
     duration: 4
     damage: 4
     range: 1
     speed: 6
     amount: 2
-    description: 3 balls
-  - cooldown: 0.9
+    description: +0.5 dmg
+  - cooldown: 0
     duration: 4
-    damage: 4
+    damage: 4.5
     range: 1
     speed: 6
-    amount: 3
-    description: 4 balls
-  - cooldown: 0.9
+    amount: 2
+    description: +0.5 dmg
+  - cooldown: 0
     duration: 4
-    damage: 4
+    damage: 5
     range: 1
     speed: 6
-    amount: 4
-    description: 5 balls
-  - cooldown: 0.9
-    duration: 4
-    damage: 4
-    range: 1
-    speed: 6
-    amount: 5
-    description: 6 balls
-  - cooldown: 0.9
-    duration: 4
-    damage: 4
-    range: 1
-    speed: 6
-    amount: 6
-    description: 7 balls
-  - cooldown: 0.9
-    duration: 4
-    damage: 4
-    range: 1
-    speed: 6
-    amount: 7
-    description: 8 balls
-  - cooldown: 0.9
-    duration: 4
-    damage: 4
-    range: 1
-    speed: 6
-    amount: 8
-    description: Faster throwing
-  - cooldown: 0.8
-    duration: 5
-    damage: 4
-    range: 1
-    speed: 6
-    amount: 8
-    description: Stronger throwing
-  - cooldown: 0.8
-    duration: 5
-    damage: 4
-    range: 1
-    speed: 8
-    amount: 8
-    description: Ball BARRAGE !!!
-  - cooldown: 0.2
-    duration: 5
-    damage: 4
-    range: 1
-    speed: 9
-    amount: 4
-    description: FINAL
+    amount: 2
+    description: +0.5 dmg
   weaponImage: {fileID: 7449052399205803541, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Shoot in walking direction
   prefab: {fileID: 2392642272803141700, guid: d658f6c642e560441a0be35645356bd1, type: 3}
@@ -52501,6 +52508,8 @@ Transform:
   - {fileID: 290669092}
   - {fileID: 2047537911}
   - {fileID: 1087733387}
+  - {fileID: 809922370}
+  - {fileID: 364913363}
   m_Father: {fileID: 2129728290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774732068
@@ -91232,6 +91241,8 @@ MonoBehaviour:
   areaWeapon: {fileID: 290669093}
   directionalWeapon: {fileID: 1087733388}
   spinWeapon: {fileID: 2047537912}
+  slowTrapWeapon: {fileID: 809922371}
+  bounceBallWeapon: {fileID: 364913362}
   rb: {fileID: 2129728291}
   animator: {fileID: 2129728288}
   moveSpeed: 2.7

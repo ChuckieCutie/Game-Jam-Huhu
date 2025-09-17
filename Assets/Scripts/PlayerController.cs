@@ -9,10 +9,14 @@ public class PlayerController : MonoBehaviour
     public AreaWeapon areaWeapon; 
     public DirectionalWeapon directionalWeapon; 
     public SpinWeapon spinWeapon; 
+    public SlowTrapWeapon slowTrapWeapon; 
+    public BounceBallWeapon bounceBallWeapon;
 
     private float areaWeaponCooldown;
     private float directionalWeaponCooldown;
     private float spinWeaponCooldown;
+    private float slowTrapWeaponCooldown;
+    private float bounceBallWeaponCooldown;
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
@@ -63,7 +67,7 @@ public class PlayerController : MonoBehaviour
             directionalWeapon.gameObject.SetActive(true);
 
         if (inactiveWeapons.Contains(directionalWeapon)){
-            inactiveWeapons.Remove(directionalWeapon);}}
+            inactiveWeapons.Remove(directionalWeapon);}
     }
 
     void Update()
@@ -98,6 +102,8 @@ public class PlayerController : MonoBehaviour
         if (areaWeaponCooldown > 0) areaWeaponCooldown -= Time.deltaTime;
         if (directionalWeaponCooldown > 0) directionalWeaponCooldown -= Time.deltaTime;
         if (spinWeaponCooldown > 0) spinWeaponCooldown -= Time.deltaTime;
+        if (slowTrapWeaponCooldown > 0) slowTrapWeaponCooldown -= Time.deltaTime;
+        if (bounceBallWeaponCooldown > 0) bounceBallWeaponCooldown -= Time.deltaTime;
 
         // Phím w cho Area Weapon
         if (Input.GetKeyDown(KeyCode.W) && areaWeapon != null && areaWeaponCooldown <= 0)
@@ -119,6 +125,17 @@ public class PlayerController : MonoBehaviour
             spinWeapon.ActivateWeapon();
             spinWeaponCooldown = spinWeapon.stats[spinWeapon.weaponLevel].cooldown;
         }
+
+        if (Input.GetMouseButtonDown(1) && slowTrapWeapon != null && slowTrapWeaponCooldown <= 0)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0; 
+
+            slowTrapWeapon.ActivateWeapon(mousePosition);
+            
+            slowTrapWeaponCooldown = slowTrapWeapon.stats[slowTrapWeapon.weaponLevel].cooldown;
+        }
+    }
     }
 
     void FixedUpdate(){
