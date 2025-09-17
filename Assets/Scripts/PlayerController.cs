@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public int currentLevel;
     public int maxLevel;
 
+    private Vector3 targetPosition;
+
     [SerializeField] private List<Weapon> inactiveWeapons;
     public List<Weapon> activeWeapons;
     [SerializeField] private List<Weapon> upgradeableWeapons;
@@ -47,31 +49,38 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.UpdateHealthSlider();
         UIController.Instance.UpdateExperienceSlider();
         AddWeapon(Random.Range(0, inactiveWeapons.Count));
+        targetPosition = transform.position;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
-        playerMoveDirection = new Vector3(inputX, inputY).normalized;
-
-        if (playerMoveDirection == Vector3.zero){
-            animator.SetBool("moving", false);
-        } else if (Time.timeScale != 0) {
-            animator.SetBool("moving", true);
-            animator.SetFloat("moveX", inputX);
-            animator.SetFloat("moveY", inputY);
-            lastMoveDirection = playerMoveDirection;
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition.z = transform.position.z; 
         }
 
+        if (Vector3.Distance(transform.position, targetPosition) > 0.1f && Time.timeScale != 0)
+        {
+            playerMoveDirection = (targetPosition - transform.position).normalized;
+            lastMoveDirection = playerMoveDirection;
+            
+            animator.SetBool("moving", true);
+            animator.SetFloat("moveX", playerMoveDirection.x);
+            animator.SetFloat("moveY", playerMoveDirection.y);
+        }
+        else
+        {
+            playerMoveDirection = Vector3.zero;
+            animator.SetBool("moving", false);
+        }
+        
         if (immunityTimer > 0){
             immunityTimer -= Time.deltaTime;
         } else {
             isImmune = false;
         }
     }
-
     void FixedUpdate(){
         rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed);
     }
