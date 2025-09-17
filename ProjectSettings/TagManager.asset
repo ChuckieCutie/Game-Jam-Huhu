@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Enemy
   layers:
@@ -14,7 +14,7 @@ TagManager:
   - UI
   - Player
   - Enemies
-  - 
+  - Projectiles
   - 
   - 
   - 
@@ -43,17 +43,19 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 4286185933
+    uniqueID: 3267387403
     locked: 0
   - name: Weapons
-    uniqueID: 953370091
+    uniqueID: 911499633
     locked: 0
   - name: Objects
-    uniqueID: 3161608345
+    uniqueID: 1919248021
     locked: 0
   - name: Foreground
-    uniqueID: 3257715157
+    uniqueID: 470246339
     locked: 0
   - name: UI
-    uniqueID: 1280721443
+    uniqueID: 4245507003
     locked: 0
+  m_RenderingLayers:
+  - Default

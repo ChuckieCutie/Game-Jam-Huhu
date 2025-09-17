@@ -1,7 +1,22 @@
 fileFormatVersion: 2
-guid: c360c4a89be437348a2666fe4d479de8
+guid: de658ef0c6072a24889b0dec04b0b73e
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -558335642140621270
+    second: pixelUI_0
+  - first:
+      213: 5628342760113990661
+    second: pixelUI_1
+  - first:
+      213: 3154357496678870782
+    second: pixelUI_2
+  - first:
+      213: 6697296021392139655
+    second: pixelUI_3
+  - first:
+      213: -7605673119481975519
+    second: pixelUI_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -67,7 +82,7 @@ TextureImporter:
   swizzle: 50462976
   cookieLightType: 0
   platformSettings:
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 4096
     resizeAlgorithm: 0
@@ -80,7 +95,7 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
+  - serializedVersion: 4
     buildTarget: Standalone
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -107,12 +122,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 49a76f80e518ad247a0c72bd49342107
-      internalID: 2066336549
+      spriteID: a26c4c011b46048f0800000000000000
+      internalID: -558335642140621270
       vertices: []
       indices: 
       edges: []
@@ -128,12 +144,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 9c664cefe7b000546b9a436624483a86
-      internalID: 721020135
+      spriteID: 50c6cba8be3eb1e40800000000000000
+      internalID: 5628342760113990661
       vertices: []
       indices: 
       edges: []
@@ -149,12 +166,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: d0818b9c8a8c61b4389a22f1e98cae76
-      internalID: 1035724200
+      spriteID: efe62244e6786cb20800000000000000
+      internalID: 3154357496678870782
       vertices: []
       indices: 
       edges: []
@@ -170,12 +188,13 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 5122e1871f179bb439ac488c89ba7f99
-      internalID: 1732578511
+      spriteID: 78527b66f3391fc50800000000000000
+      internalID: 6697296021392139655
       vertices: []
       indices: 
       edges: []
@@ -191,32 +210,36 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: e0d6aee6fbdc95243ac9a4119e5c003f
-      internalID: -598820681
+      spriteID: 12d2a8b2898337690800000000000000
+      internalID: -7605673119481975519
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
+    customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: fb965c900b140844e947ce725e68fa80
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
     nameFileIdTable:
-      pixelUI_0: 2066336549
-      pixelUI_1: 721020135
-      pixelUI_2: 1035724200
-      pixelUI_3: 1732578511
-      pixelUI_4: -598820681
+      pixelUI_0: -558335642140621270
+      pixelUI_1: 5628342760113990661
+      pixelUI_2: 3154357496678870782
+      pixelUI_3: 6697296021392139655
+      pixelUI_4: -7605673119481975519
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
