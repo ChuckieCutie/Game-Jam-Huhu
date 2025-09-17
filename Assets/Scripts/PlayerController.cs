@@ -6,6 +6,14 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
+    public AreaWeapon areaWeapon; 
+    public DirectionalWeapon directionalWeapon; 
+    public SpinWeapon spinWeapon; 
+
+    private float areaWeaponCooldown;
+    private float directionalWeaponCooldown;
+    private float spinWeaponCooldown;
+
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator animator;
 
@@ -80,7 +88,34 @@ public class PlayerController : MonoBehaviour
         } else {
             isImmune = false;
         }
+
+        if (areaWeaponCooldown > 0) areaWeaponCooldown -= Time.deltaTime;
+        if (directionalWeaponCooldown > 0) directionalWeaponCooldown -= Time.deltaTime;
+        if (spinWeaponCooldown > 0) spinWeaponCooldown -= Time.deltaTime;
+
+        // Phím Q cho Area Weapon
+        if (Input.GetKeyDown(KeyCode.Q) && areaWeapon != null && areaWeaponCooldown <= 0)
+        {
+            areaWeapon.ActivateWeapon();
+            areaWeaponCooldown = areaWeapon.stats[areaWeapon.weaponLevel].cooldown; // Đặt lại thời gian hồi chiêu
+        }
+
+        // Phím W cho Directional Weapon
+        if (Input.GetKeyDown(KeyCode.W) && directionalWeapon != null && directionalWeaponCooldown <= 0)
+        {
+            directionalWeapon.ActivateWeapon();
+            directionalWeaponCooldown = directionalWeapon.stats[directionalWeapon.weaponLevel].cooldown;
+        }
+
+        // Phím E cho Spin Weapon
+        if (Input.GetKeyDown(KeyCode.E) && spinWeapon != null && spinWeaponCooldown <= 0)
+        {
+            spinWeapon.ActivateWeapon();
+            spinWeaponCooldown = spinWeapon.stats[spinWeapon.weaponLevel].cooldown;
+        }
     }
+
+    // } // Dòng này bị thừa, tôi đã xóa nó
     void FixedUpdate(){
         rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed);
     }
