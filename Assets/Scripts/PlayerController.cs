@@ -22,8 +22,8 @@ public class PlayerController : MonoBehaviour
     public float wCooldown = 5f;
     public float eCooldown = 8f;
     public float rCooldown = 10f;
-    public float tCooldown = 60f; 
-    public float spaceCooldown = 3f; 
+    public float tCooldown = 60f;
+    public float spaceCooldown = 3f;
 
     private float wCooldownTimer = 0f;
     private float eCooldownTimer = 0f;
@@ -31,13 +31,17 @@ public class PlayerController : MonoBehaviour
     private float tCooldownTimer = 0f;
     private float spaceCooldownTimer = 0f;
 
-    public float qAttackResetTime = 0.5f; 
+    public float qAttackResetTime = 0.5f;
     private float qAttackTimer = 0f;
 
     [SerializeField] private List<Weapon> inactiveWeapons;
     public List<Weapon> activeWeapons;
     [SerializeField] private List<Weapon> upgradeableWeapons;
     public List<Weapon> maxLevelWeapons;
+    
+    // ===== CHỖ THÊM SỐ 1 =====
+    public UIController uiController;
+    // ===========================
 
     private bool isImmune;
     [SerializeField] private float immunityDuration;
@@ -98,6 +102,18 @@ public class PlayerController : MonoBehaviour
         if (spaceCooldownTimer > 0) spaceCooldownTimer -= Time.deltaTime;
         if (qAttackTimer > 0) qAttackTimer -= Time.deltaTime;
 
+        // ===== CHỖ THÊM SỐ 2 =====
+        if (uiController != null)
+        {
+            uiController.UpdateSkillCooldown(uiController.qSkill, qAttackTimer, qAttackResetTime);
+            uiController.UpdateSkillCooldown(uiController.wSkill, wCooldownTimer, wCooldown);
+            uiController.UpdateSkillCooldown(uiController.eSkill, eCooldownTimer, eCooldown);
+            uiController.UpdateSkillCooldown(uiController.rSkill, rCooldownTimer, rCooldown);
+            uiController.UpdateSkillCooldown(uiController.tSkill, tCooldownTimer, tCooldown);
+            uiController.UpdateSkillCooldown(uiController.spaceSkill, spaceCooldownTimer, spaceCooldown);
+        }
+        // ===========================
+
         // Đánh thường (Q) - Không có cooldown, chỉ có reset timer
         if (Input.GetKeyDown(KeyCode.Q) && qAttackTimer <= 0)
         {
@@ -139,10 +155,7 @@ public class PlayerController : MonoBehaviour
             PerformDodge();
             spaceCooldownTimer = spaceCooldown;
         }
-
     }
-
-    
 
     void FixedUpdate(){
         rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed);
@@ -223,41 +236,52 @@ public class PlayerController : MonoBehaviour
         AudioController.Instance.PlaySound(AudioController.Instance.selectUpgrade);
     }
 
-    void PerformNormalAttack()
-        {
-            Debug.Log("Thực hiện đòn đánh thường (Q)!");
-            // Thêm logic tấn công của bạn ở đây.
-            // Ví dụ: kích hoạt animation, tạo ra một vũ khí/đạn...
-        }
+ void PerformNormalAttack()
+{
+    Debug.Log("Bắn vũ khí bằng nút Q!");
 
-    void PerformWSkill()
+    // Duyệt qua tất cả các vũ khí đang được trang bị
+    foreach (Weapon weapon in activeWeapons)
+    {
+        // Nếu vũ khí là loại ProjectileWeapon mới của chúng ta
+        if (weapon is ProjectileWeapon projectileWeapon)
         {
-            Debug.Log("Sử dụng kỹ năng W!");
-            // Logic cho kỹ năng W
+            // Gọi hàm Attack() của nó
+            projectileWeapon.Attack();
         }
+        
+        // Bạn có thể thêm các loại vũ khí khác dùng nút Q ở đây
+        // else if (weapon is AnotherQWeapon another) { ... }
+    }
+}
+    void PerformWSkill()
+    {
+        Debug.Log("Sử dụng kỹ năng W!");
+        // Logic cho kỹ năng W
+    }
 
     void PerformESkill()
-        {
-            Debug.Log("Sử dụng kỹ năng E!");
-            // Logic cho kỹ năng E
-        }
+    {
+        Debug.Log("Sử dụng kỹ năng E!");
+        // Logic cho kỹ năng E
+    }
 
     void PerformRSkill()
-        {
-            Debug.Log("Sử dụng kỹ năng R!");
-            // Logic cho kỹ năng R
-        }
+    {
+        Debug.Log("Sử dụng kỹ năng R!");
+        // Logic cho kỹ năng R
+    }
 
     void PerformTSkill_Ultimate()
-        {
-            Debug.Log("Sử dụng ULTIMATE (T)!");
-            // Logic cho kỹ năng Ultimate
-        }
+    {
+        Debug.Log("Sử dụng ULTIMATE (T)!");
+        // Logic cho kỹ năng Ultimate
+    }
 
     void PerformDodge()
-        {
-            Debug.Log("Lộn mèo/Lướt (Space)!");
-            // Logic cho việc di chuyển lướt.
-            // Ví dụ: thay đổi nhanh vị trí của nhân vật bằng transform.position hoặc Rigidbody2D.velocity
-}
+    {
+        Debug.Log("Lộn mèo/Lướt (Space)!");
+        // Logic cho việc di chuyển lướt.
+        // Ví dụ: thay đổi nhanh vị trí của nhân vật bằng transform.position hoặc Rigidbody2D.velocity
+    }
 }
