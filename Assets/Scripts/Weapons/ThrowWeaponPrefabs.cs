@@ -16,7 +16,7 @@ public class ThrowWeaponPrefab : MonoBehaviour
 
         WeaponStats currentStats = weapon.stats[weapon.weaponLevel];
         
-        // Tính toán hướng ném từ player
+        // Tính toán hướng ném từ player (thẳng, không bổng)
         Vector2 throwDirection = PlayerController.Instance.lastMoveDirection;
         
         // Nếu không có hướng di chuyển, ném về phía trước
@@ -25,20 +25,21 @@ public class ThrowWeaponPrefab : MonoBehaviour
             throwDirection = Vector2.up;
         }
         
-        // Áp dụng góc lệch
-        float angle = Mathf.Atan2(throwDirection.y, throwDirection.x) * Mathf.Rad2Deg + angleOffset;
-        throwDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        // Áp dụng góc lệch (nếu có)
+        if (angleOffset != 0)
+        {
+            float angle = Mathf.Atan2(throwDirection.y, throwDirection.x) * Mathf.Rad2Deg + angleOffset;
+            throwDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+        }
         
-        // Thêm lực đẩy lên trên để tạo vòng cung bay
-        throwDirection.y += 0.5f;
+        // Chuẩn hóa hướng (không thêm lực lên trên)
         throwDirection = throwDirection.normalized;
         
-        // Áp dụng lực vào quả bóng
-        initialVelocity = throwDirection * currentStats.speed;
-        rb.velocity = initialVelocity;
+        // Áp dụng tốc độ thẳng vào quả bóng
+        rb.velocity = throwDirection * currentStats.speed;
         
-        // Thiết lập gravity cho chuyển động parabol
-        rb.gravityScale = gravityScale;
+        // TẮT gravity để bay thẳng
+        rb.gravityScale = 0f;
         
         // Tự hủy sau thời gian duration
         Destroy(gameObject, currentStats.duration);
@@ -46,8 +47,8 @@ public class ThrowWeaponPrefab : MonoBehaviour
 
     void Update()
     {
-        // Xoay object theo hướng bay để tạo hiệu ứng quay
-        if (!hasHitGround && rb.velocity.magnitude > 0.1f)
+        // Xoay object theo hướng bay để tạo hiệu ứng
+        if (rb.velocity.magnitude > 0.1f)
         {
             float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -77,20 +78,16 @@ public class ThrowWeaponPrefab : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Xử lý va chạm với địa hình (nếu có)
-        if (collision.gameObject.CompareTag("Ground") || collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-        {
-            hasHitGround = true;
-            // Có thể làm nảy lại hoặc dừng lại
-            HandleGroundHit(collision);
-        }
-        else if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy"))
         {
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
                 enemy.TakeDamage(weapon.stats[weapon.weaponLevel].damage);
                 CreateImpactEffect();
+                
+                // Có thể hủy ngay sau khi trúng enemy hoặc để bay tiếp
+                // Destroy(gameObject); // Uncomment nếu muốn hủy ngay khi trúng
             }
         }
     }

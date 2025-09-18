@@ -867,39 +867,39 @@ MonoBehaviour:
     speed: 0.5
     amount: 0
     pierce: 0
-    description: Damage + 1
+    description: Bass Drop
   - cooldown: 4
     duration: 1
     damage: 4
-    range: 0.7
-    speed: 0.5
-    amount: 0
-    pierce: 0
-    description: Damage + 1
+    range: 1
+    speed: 0.7
+    amount: 1
+    pierce: 1
+    description: Massive Damage Boost +33%
   - cooldown: 4
     duration: 1
     damage: 5
-    range: 0.7
-    speed: 0.5
-    amount: 0
-    pierce: 0
-    description: Damage + 1
+    range: 1.2
+    speed: 1
+    amount: 2
+    pierce: 2
+    description: Massive Damage Boost +33%
   - cooldown: 3.5
     duration: 1
     damage: 6
-    range: 0.7
-    speed: 0.5
+    range: 1.5
+    speed: 1.2
     amount: 0
     pierce: 0
-    description: Damage + 1, Cooldown -0.5s
+    description: Massive Damage Boost +20%,and Cooldown Reduction 14%
   - cooldown: 3
     duration: 1
     damage: 7
-    range: 1.4
-    speed: 0.5
+    range: 1.7
+    speed: 1.5
     amount: 0
     pierce: 0
-    description: Damage + 1, Cooldown -0.5s, + 50% rangen
+    description: Massive Damage Boost +14%,and Cooldown Reduction 14%
   weaponImage: {fileID: 2781533676904308770, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Hungry shadow follows you around
   prefab: {fileID: 3260703539074801876, guid: 8a0af0142b3e0ed42a46858c826bc970, type: 3}
@@ -3394,14 +3394,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: 0
   stats:
-  - cooldown: 0
-    duration: 3
-    damage: 3
-    range: 2
+  - cooldown: 6
+    duration: 1
+    damage: 2
+    range: 5
     speed: 1
     amount: 1
-    pierce: 0
-    description: 
+    pierce: 1
+    description: Slow down the enemy
+  - cooldown: 6
+    duration: 2
+    damage: 2
+    range: 6
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Slow more
+  - cooldown: 5.5
+    duration: 2
+    damage: 3
+    range: 6
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Slowdown the enemy 10%, Damage +33.33%. cooldown -8.3%
+  - cooldown: 5
+    duration: 3
+    damage: 4
+    range: 6
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Slowdown the enemy 10%, Damage +33.33%. cooldown -8.3%
+  - cooldown: 4.5
+    duration: 3
+    damage: 4.5
+    range: 6
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Slowdown the enemy 10%, Damage +33.33%. cooldown -12.5%
   weaponImage: {fileID: -1822811771, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
   basicDescription: SLow dowm the enemy
   prefab: {fileID: 8384538471753497255, guid: 2e07b73332366964ebd6ad5c032af12e, type: 3}
@@ -49497,14 +49529,6 @@ MonoBehaviour:
     amount: 2
     pierce: 0
     description: +0.5 dmg
-  - cooldown: 0
-    duration: 4
-    damage: 5
-    range: 1
-    speed: 6
-    amount: 2
-    pierce: 0
-    description: +0.5 dmg
   weaponImage: {fileID: 7449052399205803541, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Shoot in walking direction
   prefab: {fileID: 2392642272803141700, guid: d658f6c642e560441a0be35645356bd1, type: 3}
@@ -52198,6 +52222,95 @@ Transform:
   m_Children: []
   m_Father: {fileID: 441504486}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1703674386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1703674387}
+  - component: {fileID: 1703674388}
+  m_Layer: 6
+  m_Name: MicSpin Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1703674387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703674386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1774704217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1703674388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1703674386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d975f21868296454190ff358a3b9639b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponLevel: 0
+  stats:
+  - cooldown: 5
+    duration: 2
+    damage: 2
+    range: 5
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: MicSpin
+  - cooldown: 5
+    duration: 2
+    damage: 2.5
+    range: 5
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Massive damage +20%
+  - cooldown: 4.5
+    duration: 2
+    damage: 3
+    range: 5
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Massive damage +16.7%, Cooldown time reduces 10%
+  - cooldown: 4
+    duration: 2
+    damage: 4
+    range: 5
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: "Massive damage +25%, Cooldown time re\u0111uce + 11.11%"
+  - cooldown: 4
+    duration: 2
+    damage: 5.5
+    range: 5
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Massive Damage + 27.27%
+  weaponImage: {fileID: -265851876, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
+  basicDescription: "Mic Spin t\u1EA1m "
+  prefab: {fileID: 942451037518574939, guid: 4e59edc27c85b714895dc57b2e2e1df1, type: 3}
 --- !u!1 &1712191558
 GameObject:
   m_ObjectHideFlags: 0
@@ -52506,14 +52619,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponLevel: 0
   stats:
-  - cooldown: 1
-    duration: 1
-    damage: 1
-    range: 1
+  - cooldown: 8
+    duration: 3
+    damage: 4
+    range: 5
     speed: 1
     amount: 1
     pierce: 1
-    description: 
+    description: Resonant Orb
+  - cooldown: 7.5
+    duration: 3
+    damage: 5
+    range: 5
+    speed: 1
+    amount: 1
+    pierce: 1
+    description: Damage+20%, cooldown time - 6.25%
+  - cooldown: 7
+    duration: 3
+    damage: 6
+    range: 5
+    speed: 1
+    amount: 1
+    pierce: 1
+    description: Damage+16.7%, cooldown time - 6.67%
+  - cooldown: 6.5
+    duration: 3
+    damage: 7.5
+    range: 5
+    speed: 1
+    amount: 1
+    pierce: 1
+    description: Damage+20%, cooldown time - 7.14%
+  - cooldown: 6
+    duration: 3
+    damage: 9
+    range: 10
+    speed: 2
+    amount: 2
+    pierce: 2
+    description: Damage+20%, cooldown time - 7.69%
   weaponImage: {fileID: 740078143, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
   basicDescription: Bounce
   prefab: {fileID: 2928392060004502520, guid: 4f2f7a24a8560a94baaf5b5c9935ef90, type: 3}
@@ -52547,10 +52692,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 290669092}
-  - {fileID: 2047537911}
   - {fileID: 1087733387}
   - {fileID: 809922370}
   - {fileID: 1753509747}
+  - {fileID: 1703674387}
   m_Father: {fileID: 2129728290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774732068
@@ -90660,103 +90805,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967011283}
   m_CullTransparentMesh: 1
---- !u!1 &2047537910
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2047537911}
-  - component: {fileID: 2047537912}
-  m_Layer: 6
-  m_Name: Spin Weapon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2047537911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047537910}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1774704217}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2047537912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2047537910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9b22ac83db741f47b63e0552ae7a64d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponLevel: 0
-  stats:
-  - cooldown: 5
-    duration: 1
-    damage: 2
-    range: 1
-    speed: 3
-    amount: 1
-    pierce: 0
-    description: 
-  - cooldown: 5
-    duration: 4
-    damage: 2.5
-    range: 1
-    speed: 2
-    amount: 1
-    pierce: 0
-    description: Damage + 0.5
-  - cooldown: 4.5
-    duration: 1
-    damage: 3
-    range: 1
-    speed: 2
-    amount: 1
-    pierce: 0
-    description: Damage + 0.5
-  - cooldown: 4
-    duration: 4
-    damage: 4
-    range: 2.4
-    speed: 2.2
-    amount: 1
-    pierce: 0
-    description: Damage + 1, Cooldown - 0,5s
-  - cooldown: 4
-    duration: 4
-    damage: 3
-    range: 2.6
-    speed: 1.5
-    amount: 5
-    pierce: 0
-    description: +1 damage
-  - cooldown: 4
-    duration: 4
-    damage: 5.5
-    range: 2.6
-    speed: 1.5
-    amount: 5
-    pierce: 0
-    description: Damage + 1,5
-  weaponImage: {fileID: -2153854721710166906, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
-  basicDescription: Balls that spin around you
-  prefab: {fileID: 4228278327014143286, guid: a8a30df1fd93170479d03f99783dbdd5, type: 3}
 --- !u!1 &2068090151
 GameObject:
   m_ObjectHideFlags: 0
@@ -91246,7 +91294,7 @@ MonoBehaviour:
   directionalWeapon: {fileID: 1087733388}
   inactiveWeaponsPool:
   - {fileID: 290669093}
-  - {fileID: 2047537912}
+  - {fileID: 1703674388}
   - {fileID: 809922371}
   - {fileID: 1753509748}
   activeWeapons: []
