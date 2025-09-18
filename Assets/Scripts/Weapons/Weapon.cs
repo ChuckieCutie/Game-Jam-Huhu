@@ -27,6 +27,6 @@ public class WeaponStats {
     public float range;
     public float speed;
     public float amount;
-
+    public int pierce; // << DÒNG QUAN TRỌNG ĐÃ ĐƯỢC THÊM VÀO ĐÂY
     public string description;
 }

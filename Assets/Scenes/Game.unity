@@ -866,7 +866,40 @@ MonoBehaviour:
     range: 0.7
     speed: 0.5
     amount: 0
-    description: Damage +1
+    pierce: 0
+    description: Damage + 1
+  - cooldown: 4
+    duration: 1
+    damage: 4
+    range: 0.7
+    speed: 0.5
+    amount: 0
+    pierce: 0
+    description: Damage + 1
+  - cooldown: 4
+    duration: 1
+    damage: 5
+    range: 0.7
+    speed: 0.5
+    amount: 0
+    pierce: 0
+    description: Damage + 1
+  - cooldown: 3.5
+    duration: 1
+    damage: 6
+    range: 0.7
+    speed: 0.5
+    amount: 0
+    pierce: 0
+    description: Damage + 1, Cooldown -0.5s
+  - cooldown: 3
+    duration: 1
+    damage: 7
+    range: 1.4
+    speed: 0.5
+    amount: 0
+    pierce: 0
+    description: Damage + 1, Cooldown -0.5s, + 50% rangen
   weaponImage: {fileID: 2781533676904308770, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Hungry shadow follows you around
   prefab: {fileID: 3260703539074801876, guid: 8a0af0142b3e0ed42a46858c826bc970, type: 3}
@@ -1004,62 +1037,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312581860}
   m_CullTransparentMesh: 1
---- !u!1 &364913361
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 364913363}
-  - component: {fileID: 364913362}
-  m_Layer: 6
-  m_Name: Bounce Ball Weapon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &364913362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364913361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9e7c8c46ccea6446871bef0d1d2b85b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponLevel: 0
-  stats:
-  - cooldown: 0
-    duration: 1
-    damage: 2
-    range: 3
-    speed: 2
-    amount: 1
-    description: 
-  weaponImage: {fileID: 740078143, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
-  basicDescription: "Bay b\u1ED5ng"
-  prefab: {fileID: 4616136610190095746, guid: 526fe538f2f1c81409eafdf3764803ac, type: 3}
---- !u!4 &364913363
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 364913361}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1774704217}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &365602702
 GameObject:
   m_ObjectHideFlags: 0
@@ -3423,6 +3400,7 @@ MonoBehaviour:
     range: 2
     speed: 1
     amount: 1
+    pierce: 0
     description: 
   weaponImage: {fileID: -1822811771, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
   basicDescription: SLow dowm the enemy
@@ -49485,6 +49463,7 @@ MonoBehaviour:
     range: 1
     speed: 6
     amount: 2
+    pierce: 0
     description: 'level 1: 2.5 dmg'
   - cooldown: 0
     duration: 4
@@ -49492,6 +49471,7 @@ MonoBehaviour:
     range: 1
     speed: 6
     amount: 2
+    pierce: 0
     description: +0.5dmg
   - cooldown: 0
     duration: 4
@@ -49499,6 +49479,7 @@ MonoBehaviour:
     range: 1
     speed: 6
     amount: 2
+    pierce: 0
     description: +0.5 dmg
   - cooldown: 0
     duration: 4
@@ -49506,6 +49487,7 @@ MonoBehaviour:
     range: 1
     speed: 6
     amount: 2
+    pierce: 0
     description: +0.5 dmg
   - cooldown: 0
     duration: 4
@@ -49513,6 +49495,7 @@ MonoBehaviour:
     range: 1
     speed: 6
     amount: 2
+    pierce: 0
     description: +0.5 dmg
   - cooldown: 0
     duration: 4
@@ -49520,6 +49503,7 @@ MonoBehaviour:
     range: 1
     speed: 6
     amount: 2
+    pierce: 0
     description: +0.5 dmg
   weaponImage: {fileID: 7449052399205803541, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Shoot in walking direction
@@ -52476,6 +52460,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1742989330}
   m_CullTransparentMesh: 1
+--- !u!1 &1753509746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1753509747}
+  - component: {fileID: 1753509748}
+  m_Layer: 6
+  m_Name: Throw Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1753509747
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753509746}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1774704217}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1753509748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753509746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec32fa96ee14cc74f8ff6cdf27d7c531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponLevel: 0
+  stats:
+  - cooldown: 1
+    duration: 1
+    damage: 1
+    range: 1
+    speed: 1
+    amount: 1
+    pierce: 1
+    description: 
+  weaponImage: {fileID: 740078143, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
+  basicDescription: Bounce
+  prefab: {fileID: 2928392060004502520, guid: 4f2f7a24a8560a94baaf5b5c9935ef90, type: 3}
 --- !u!1 &1774704216
 GameObject:
   m_ObjectHideFlags: 0
@@ -52509,7 +52550,7 @@ Transform:
   - {fileID: 2047537911}
   - {fileID: 1087733387}
   - {fileID: 809922370}
-  - {fileID: 364913363}
+  - {fileID: 1753509747}
   m_Father: {fileID: 2129728290}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1774732068
@@ -90666,89 +90707,53 @@ MonoBehaviour:
   weaponLevel: 0
   stats:
   - cooldown: 5
-    duration: 4
+    duration: 1
     damage: 2
-    range: 1.5
+    range: 1
     speed: 3
     amount: 1
-    description: +1 ball
+    pierce: 0
+    description: 
   - cooldown: 5
     duration: 4
-    damage: 2
-    range: 2
-    speed: 2.6
-    amount: 2
-    description: +1 ball
-  - cooldown: 5
-    duration: 4
-    damage: 2
-    range: 2.2
-    speed: 2.2
-    amount: 3
-    description: +1 damage
-  - cooldown: 5
-    duration: 4
+    damage: 2.5
+    range: 1
+    speed: 2
+    amount: 1
+    pierce: 0
+    description: Damage + 0.5
+  - cooldown: 4.5
+    duration: 1
     damage: 3
+    range: 1
+    speed: 2
+    amount: 1
+    pierce: 0
+    description: Damage + 0.5
+  - cooldown: 4
+    duration: 4
+    damage: 4
     range: 2.4
     speed: 2.2
-    amount: 3
-    description: +2 balls
-  - cooldown: 5
+    amount: 1
+    pierce: 0
+    description: Damage + 1, Cooldown - 0,5s
+  - cooldown: 4
     duration: 4
     damage: 3
     range: 2.6
     speed: 1.5
     amount: 5
+    pierce: 0
     description: +1 damage
-  - cooldown: 5
+  - cooldown: 4
     duration: 4
-    damage: 4
-    range: 2.8
+    damage: 5.5
+    range: 2.6
     speed: 1.5
     amount: 5
-    description: +1 ball
-  - cooldown: 5
-    duration: 4
-    damage: 4
-    range: 3
-    speed: 1.4
-    amount: 6
-    description: +1 ball
-  - cooldown: 5
-    duration: 4
-    damage: 4
-    range: 3.2
-    speed: 1.3
-    amount: 7
-    description: +1 ball
-  - cooldown: 5
-    duration: 4
-    damage: 4
-    range: 3.4
-    speed: 1.2
-    amount: 8
-    description: +1 damage
-  - cooldown: 5
-    duration: 4
-    damage: 5
-    range: 3.6
-    speed: 1.2
-    amount: 8
-    description: +1 ball
-  - cooldown: 5
-    duration: 4
-    damage: 5
-    range: 3.8
-    speed: 1.1
-    amount: 9
-    description: +1 ball
-  - cooldown: 5
-    duration: 4
-    damage: 5
-    range: 4
-    speed: 1
-    amount: 10
-    description: Final
+    pierce: 0
+    description: Damage + 1,5
   weaponImage: {fileID: -2153854721710166906, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Balls that spin around you
   prefab: {fileID: 4228278327014143286, guid: a8a30df1fd93170479d03f99783dbdd5, type: 3}
@@ -91243,7 +91248,7 @@ MonoBehaviour:
   - {fileID: 290669093}
   - {fileID: 2047537912}
   - {fileID: 809922371}
-  - {fileID: 364913362}
+  - {fileID: 1753509748}
   activeWeapons: []
   upgradeableWeapons: []
   maxLevelWeapons: []
@@ -91255,7 +91260,7 @@ MonoBehaviour:
   experience: 0
   currentLevel: 1
   maxLevel: 30
-  playerLevels: 0a000000140000001e000000
+  playerLevels: 050000000700000009000000
   rb: {fileID: 2129728291}
   animator: {fileID: 2129728288}
   immunityDuration: 1
