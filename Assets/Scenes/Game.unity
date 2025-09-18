@@ -1283,9 +1283,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8af61e0595ea44298f4174ab6b57d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: {fileID: 601132727}
-  weaponDescription: {fileID: 1197978856}
   weaponIcon: {fileID: 430077073}
+  weaponNameText: {fileID: 601132727}
+  weaponDescriptionText: {fileID: 1197978856}
 --- !u!1 &413641665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3580,7 +3580,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &840188844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3709,9 +3709,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8af61e0595ea44298f4174ab6b57d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: {fileID: 312581862}
-  weaponDescription: {fileID: 659433459}
   weaponIcon: {fileID: 1797510603}
+  weaponNameText: {fileID: 312581862}
+  weaponDescriptionText: {fileID: 659433459}
 --- !u!1 &841117113
 GameObject:
   m_ObjectHideFlags: 0
@@ -46354,9 +46354,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8af61e0595ea44298f4174ab6b57d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: {fileID: 1924870459}
-  weaponDescription: {fileID: 174127905}
   weaponIcon: {fileID: 28749942}
+  weaponNameText: {fileID: 1924870459}
+  weaponDescriptionText: {fileID: 174127905}
 --- !u!224 &967768731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50989,7 +50989,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 190, y: -46}
+  m_AnchoredPosition: {x: 176, y: -46}
   m_SizeDelta: {x: 300, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1511465074
@@ -51098,9 +51098,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8af61e0595ea44298f4174ab6b57d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: {fileID: 1615160191}
-  weaponDescription: {fileID: 1742989332}
   weaponIcon: {fileID: 500809677}
+  weaponNameText: {fileID: 1615160191}
+  weaponDescriptionText: {fileID: 1742989332}
 --- !u!1 &1529921175
 GameObject:
   m_ObjectHideFlags: 0
@@ -91238,14 +91238,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162b872d85bb9bd479cda1b1a3053db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaWeapon: {fileID: 290669093}
   directionalWeapon: {fileID: 1087733388}
-  spinWeapon: {fileID: 2047537912}
-  slowTrapWeapon: {fileID: 809922371}
-  bounceBallWeapon: {fileID: 364913362}
-  rb: {fileID: 2129728291}
-  animator: {fileID: 2129728288}
-  moveSpeed: 2.7
+  inactiveWeaponsPool:
+  - {fileID: 290669093}
+  - {fileID: 2047537912}
+  - {fileID: 809922371}
+  - {fileID: 364913362}
+  activeWeapons: []
+  upgradeableWeapons: []
+  maxLevelWeapons: []
+  moveSpeed: 5
   playerMoveDirection: {x: 0, y: 0, z: 0}
   lastMoveDirection: {x: 0, y: 0, z: 0}
   playerMaxHealth: 10
@@ -91253,16 +91255,11 @@ MonoBehaviour:
   experience: 0
   currentLevel: 1
   maxLevel: 30
-  inactiveWeapons:
-  - {fileID: 290669093}
-  - {fileID: 2047537912}
-  - {fileID: 1087733388}
-  activeWeapons: []
-  upgradeableWeapons: []
-  maxLevelWeapons: []
+  playerLevels: 0a000000140000001e000000
+  rb: {fileID: 2129728291}
+  animator: {fileID: 2129728288}
   immunityDuration: 1
   immunityTimer: 0
-  playerLevels: 0a000000140000001e000000
 --- !u!70 &2129728293
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
