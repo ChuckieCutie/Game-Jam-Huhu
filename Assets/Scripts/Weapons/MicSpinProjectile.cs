@@ -5,8 +5,9 @@ public class MicSpinProjectile : MonoBehaviour
 {
     private float damage;
     private float speed;
+    private float knockback; // <<< THÊM MỚI
     private Vector3 direction;
-    private float lifetime = 1f; // <<< ĐÃ THAY ĐỔI: Tăng thời gian tồn tại lên 1 giây
+    private float lifetime = 1f;
 
     void Start()
     {
@@ -15,12 +16,15 @@ public class MicSpinProjectile : MonoBehaviour
         {
             if (weapon is MicSpinWeapon micSpinWeapon)
             {
-                damage = micSpinWeapon.stats[micSpinWeapon.weaponLevel].damage;
-                speed = micSpinWeapon.stats[micSpinWeapon.weaponLevel].speed;
+                WeaponStats stats = micSpinWeapon.stats[micSpinWeapon.weaponLevel];
+                damage = stats.damage;
+                speed = stats.speed;
+                knockback = stats.knockbackForce; // <<< THÊM MỚI
                 break;
             }
         }
-        // Hẹn giờ tự hủy sau 1 giây
+        
+        // Hẹn giờ tự hủy sau lifetime
         Destroy(gameObject, lifetime);
     }
 
@@ -34,8 +38,7 @@ public class MicSpinProjectile : MonoBehaviour
     public void SetDirection(Vector3 dir)
     {
         direction = dir.normalized;
-        
-        // Xoay viên đạn theo hướng di chuyển (giống hệt DirectionalWeaponPrefab)
+        // Xoay viên đạn theo hướng di chuyển
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
@@ -48,10 +51,10 @@ public class MicSpinProjectile : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(damage);
+                // <<< THAY ĐỔI: Truyền thêm knockback
+                enemy.TakeDamage(damage, knockback);
             }
-            // <<< QUAN TRỌNG: Không có "Destroy(gameObject);" ở đây
-            // Điều này đảm bảo viên đạn sẽ bay xuyên qua kẻ địch
+            // Viên đạn bay xuyên qua kẻ địch
         }
     }
 }

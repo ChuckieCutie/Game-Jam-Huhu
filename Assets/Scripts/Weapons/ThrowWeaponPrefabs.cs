@@ -4,61 +4,36 @@ public class ThrowWeaponPrefab : MonoBehaviour
 {
     private ThrowWeapon weapon;
     private Rigidbody2D rb;
-    private float angleOffset = 0f;
-    private bool hasHitGround = false;
-    private float gravityScale = 1f;
-    private Vector2 initialVelocity;
 
     void Start()
     {
         weapon = GetComponentInParent<ThrowWeapon>();
         rb = GetComponent<Rigidbody2D>();
-
+        
         WeaponStats currentStats = weapon.stats[weapon.weaponLevel];
-        
-        // Tính toán hướng ném từ player (thẳng, không bổng)
         Vector2 throwDirection = PlayerController.Instance.lastMoveDirection;
-        
-        // Nếu không có hướng di chuyển, ném về phía trước
+
         if (throwDirection == Vector2.zero)
         {
-            throwDirection = Vector2.up;
+            throwDirection = Vector2.up; // Ném lên trên nếu đứng yên
         }
-        
-        // Áp dụng góc lệch (nếu có)
-        if (angleOffset != 0)
-        {
-            float angle = Mathf.Atan2(throwDirection.y, throwDirection.x) * Mathf.Rad2Deg + angleOffset;
-            throwDirection = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
-        }
-        
-        // Chuẩn hóa hướng (không thêm lực lên trên)
-        throwDirection = throwDirection.normalized;
-        
-        // Áp dụng tốc độ thẳng vào quả bóng
-        rb.velocity = throwDirection * currentStats.speed;
-        
-        // TẮT gravity để bay thẳng
+
+        rb.velocity = throwDirection.normalized * currentStats.speed;
         rb.gravityScale = 0f;
-        
-        // Tự hủy sau thời gian duration
         Destroy(gameObject, currentStats.duration);
     }
 
     void Update()
     {
-        // Xoay object theo hướng bay để tạo hiệu ứng
+        // Xoay object theo hướng bay
         if (rb.velocity.magnitude > 0.1f)
         {
             float angle = Mathf.Atan2(rb.velocity.y, rb.velocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
-
-    public void SetThrowAngle(float offset)
-    {
-        angleOffset = offset;
-    }
+    
+    // Sửa cả 2 hàm va chạm dưới đây
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -67,12 +42,12 @@ public class ThrowWeaponPrefab : MonoBehaviour
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
-                // Gây sát thương
-                enemy.TakeDamage(weapon.stats[weapon.weaponLevel].damage);
-                
-                // Có thể thêm hiệu ứng nảy lại hoặc tiếp tục bay
-                CreateImpactEffect();
+                WeaponStats stats = weapon.stats[weapon.weaponLevel];
+                // <<< THAY ĐỔI: Truyền thêm knockbackForce
+                enemy.TakeDamage(stats.damage, stats.knockbackForce);
             }
+            // Có thể hủy projectile ở đây nếu muốn
+            // Destroy(gameObject);
         }
     }
 
@@ -83,28 +58,12 @@ public class ThrowWeaponPrefab : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             if (enemy != null)
             {
-                enemy.TakeDamage(weapon.stats[weapon.weaponLevel].damage);
-                CreateImpactEffect();
-                
-                // Có thể hủy ngay sau khi trúng enemy hoặc để bay tiếp
-                // Destroy(gameObject); // Uncomment nếu muốn hủy ngay khi trúng
+                WeaponStats stats = weapon.stats[weapon.weaponLevel];
+                // <<< THAY ĐỔI: Truyền thêm knockbackForce
+                enemy.TakeDamage(stats.damage, stats.knockbackForce);
             }
+            // Có thể hủy projectile ở đây nếu muốn
+            // Destroy(gameObject);
         }
-    }
-
-    private void HandleGroundHit(Collision2D collision)
-    {
-        // Tạo hiệu ứng nảy nhẹ
-        Vector2 bounceDirection = Vector2.Reflect(rb.velocity.normalized, collision.contacts[0].normal);
-        rb.velocity = bounceDirection * rb.velocity.magnitude * 0.3f; // Giảm tốc độ sau khi nảy
-        
-        // Giảm gravity để không nảy quá nhiều
-        rb.gravityScale *= 0.5f;
-    }
-
-    private void CreateImpactEffect()
-    {
-        // Có thể thêm particle effect hoặc animation khi va chạm
-        // Instantiate impact effect here nếu có
     }
 }

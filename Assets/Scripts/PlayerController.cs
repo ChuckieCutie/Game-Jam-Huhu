@@ -10,14 +10,12 @@ public class PlayerController : MonoBehaviour
     [Header("Weapon Slots")]
     public DirectionalWeapon directionalWeapon; // Vũ khí Q (cố định)
 
-    private Weapon weaponSlotW;
-    private Weapon weaponSlotE;
-    private Weapon weaponSlotR;
-
-    private float cooldownQ, cooldownW, cooldownE, cooldownR;
+    private Dictionary<string, Weapon> weaponSlots = new Dictionary<string, Weapon>();
+    private Dictionary<string, float> cooldowns = new Dictionary<string, float>();
+    private Dictionary<string, KeyCode> keyMappings = new Dictionary<string, KeyCode>();
 
     [Header("Weapon Management")]
-    [SerializeField] private List<Weapon> inactiveWeaponsPool; // Pool vũ khí chưa mở khóa
+    [SerializeField] private List<Weapon> inactiveWeaponsPool;
     public List<Weapon> activeWeapons;
     [SerializeField] private List<Weapon> upgradeableWeapons;
     public List<Weapon> maxLevelWeapons;
@@ -48,6 +46,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); } 
         else { Instance = this; }
+
+        InitializeWeaponSlots();
     }
 
     void Start()
@@ -62,28 +62,117 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.UpdateExperienceSlider();
         targetPosition = transform.position;
 
-        // Bắt đầu với vũ khí Q
         activeWeapons.Add(directionalWeapon);
         directionalWeapon.gameObject.SetActive(true);
     }
 
     void Update()
     {
-        HandleMovement();
+        HandleMovement(); // <<< HÀM NÀY GIỜ ĐÃ CÓ CODE ĐẦY ĐỦ
         HandleImmunity();
         HandleCooldowns();
         HandleWeaponInputs();
     }
 
+    void InitializeWeaponSlots()
+    {
+        weaponSlots.Add("W", null);
+        weaponSlots.Add("E", null);
+        weaponSlots.Add("R", null);
+
+        cooldowns.Add("Q", 0f);
+        cooldowns.Add("W", 0f);
+        cooldowns.Add("E", 0f);
+        cooldowns.Add("R", 0f);
+
+        keyMappings.Add("W", KeyCode.W);
+        keyMappings.Add("E", KeyCode.E);
+        keyMappings.Add("R", KeyCode.R);
+    }
+
+    void HandleCooldowns()
+    {
+        List<string> keys = new List<string>(cooldowns.Keys);
+        foreach (string key in keys)
+        {
+            if (cooldowns[key] > 0)
+            {
+                cooldowns[key] -= Time.deltaTime;
+            }
+        }
+    }
+
+    void HandleWeaponInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.Q) && IsSkillReady("Q"))
+        {
+            directionalWeapon.ActivateWeapon();
+            cooldowns["Q"] = directionalWeapon.stats[directionalWeapon.weaponLevel].cooldown;
+            SkillCooldownUI.Instance.StartCooldown("Q", cooldowns["Q"]);
+        }
+
+        foreach (var mapping in keyMappings)
+        {
+            string slotKey = mapping.Key;
+            KeyCode keyCode = mapping.Value;
+
+            if (Input.GetKeyDown(keyCode) && IsSkillReady(slotKey))
+            {
+                Weapon weapon = weaponSlots[slotKey];
+                ActivateWeaponInSlot(weapon);
+                cooldowns[slotKey] = weapon.stats[weapon.weaponLevel].cooldown;
+                SkillCooldownUI.Instance.StartCooldown(slotKey, cooldowns[slotKey]);
+            }
+        }
+    }
+    
+    public void AssignWeaponToSlot(Weapon newWeapon)
+    {
+        string assignedSlot = "";
+        if (weaponSlots["W"] == null) assignedSlot = "W";
+        else if (weaponSlots["E"] == null) assignedSlot = "E";
+        else if (weaponSlots["R"] == null) assignedSlot = "R";
+
+        if (!string.IsNullOrEmpty(assignedSlot))
+        {
+            weaponSlots[assignedSlot] = newWeapon;
+            newWeapon.gameObject.SetActive(true);
+            activeWeapons.Add(newWeapon);
+            inactiveWeaponsPool.Remove(newWeapon);
+
+            if (SkillCooldownUI.Instance != null)
+            {
+                SkillCooldownUI.Instance.AssignWeaponToSlot(newWeapon, assignedSlot);
+            }
+        }
+    }
+
+    public float GetRemainingCooldown(string slot)
+    {
+        if (cooldowns.ContainsKey(slot.ToUpper()))
+        {
+            return cooldowns[slot.ToUpper()];
+        }
+        return 0;
+    }
+
+    public bool IsSkillReady(string slot)
+    {
+        string upperSlot = slot.ToUpper();
+        if (!cooldowns.ContainsKey(upperSlot) || cooldowns[upperSlot] > 0) return false;
+        if (upperSlot == "Q") return directionalWeapon != null;
+        if (weaponSlots.ContainsKey(upperSlot)) return weaponSlots[upperSlot] != null;
+        return false;
+    }
+    
+    // <<< SỬA LỖI: ĐÃ TRẢ LẠI CODE CHO HÀM NÀY
     void HandleMovement()
     {
-        // Trả lại di chuyển bằng chuột phải
         if (Input.GetMouseButtonDown(1)) 
         {
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPosition.z = transform.position.z;
         }
-
         if (Vector3.Distance(transform.position, targetPosition) > 0.1f && Time.timeScale != 0)
         {
             playerMoveDirection = (targetPosition - transform.position).normalized;
@@ -99,44 +188,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    void HandleCooldowns()
-    {
-        if (cooldownQ > 0) cooldownQ -= Time.deltaTime;
-        if (cooldownW > 0) cooldownW -= Time.deltaTime;
-        if (cooldownE > 0) cooldownE -= Time.deltaTime;
-        if (cooldownR > 0) cooldownR -= Time.deltaTime;
-    }
-
-    void HandleWeaponInputs()
-    {
-        // Phím Q (cố định)
-        if (Input.GetKeyDown(KeyCode.Q) && directionalWeapon != null && cooldownQ <= 0)
-        {
-            directionalWeapon.ActivateWeapon();
-            cooldownQ = directionalWeapon.stats[directionalWeapon.weaponLevel].cooldown;
-        }
-
-        // Phím W
-        if (Input.GetKeyDown(KeyCode.W) && weaponSlotW != null && cooldownW <= 0)
-        {
-            ActivateWeaponInSlot(weaponSlotW, ref cooldownW);
-        }
-
-        // Phím E
-        if (Input.GetKeyDown(KeyCode.E) && weaponSlotE != null && cooldownE <= 0)
-        {
-            ActivateWeaponInSlot(weaponSlotE, ref cooldownE);
-        }
-
-        // Phím R
-        if (Input.GetKeyDown(KeyCode.R) && weaponSlotR != null && cooldownR <= 0)
-        {
-            ActivateWeaponInSlot(weaponSlotR, ref cooldownR);
-        }
-    }
-    
-    // Hàm phụ trợ để kích hoạt vũ khí trong ô, xử lý các trường hợp đặc biệt
-    void ActivateWeaponInSlot(Weapon weapon, ref float cooldown)
+    void ActivateWeaponInSlot(Weapon weapon)
     {
         if (weapon is SlowTrapWeapon slowTrap)
         {
@@ -144,12 +196,10 @@ public class PlayerController : MonoBehaviour
             mousePosition.z = 0;
             slowTrap.ActivateWeapon(mousePosition);
         }
-        else // Dành cho các vũ khí khác không cần vị trí chuột (Area, Spin, BounceBall)
+        else 
         {
             weapon.SendMessage("ActivateWeapon", SendMessageOptions.DontRequireReceiver);
         }
-        
-        cooldown = weapon.stats[weapon.weaponLevel].cooldown;
     }
 
     void HandleImmunity()
@@ -160,87 +210,68 @@ public class PlayerController : MonoBehaviour
 
     public void LevelUp()
     {
+        if (currentLevel >= maxLevel) return;
         experience -= playerLevels[currentLevel - 1];
         currentLevel++;
         UIController.Instance.UpdateExperienceSlider();
-
         upgradeableWeapons.Clear();
         
-        // Kiểm tra xem còn ô W, E, hoặc R trống không
-        if (weaponSlotW == null || weaponSlotE == null || weaponSlotR == null)
+        var upgradableActiveWeapons = activeWeapons.Where(w => w.weaponLevel < w.stats.Count - 1).ToList();
+        
+        if ((weaponSlots["W"] == null || weaponSlots["E"] == null || weaponSlots["R"] == null) && inactiveWeaponsPool.Any())
         {
-            // Nếu còn, hiển thị các vũ khí mới có thể chọn
             upgradeableWeapons.AddRange(inactiveWeaponsPool);
         }
-        else // Nếu tất cả các ô đã có vũ khí
-        {
-            // Hiển thị các vũ khí đang sở hữu để nâng cấp
-            upgradeableWeapons.AddRange(activeWeapons.Where(w => w.weaponLevel < w.stats.Count - 1));
-        }
         
+        upgradeableWeapons.AddRange(upgradableActiveWeapons);
+        upgradeableWeapons = upgradeableWeapons.OrderBy(x => Random.value).ToList();
+
         for (int i = 0; i < UIController.Instance.levelUpButtons.Length; i++)
         {
             if (i < upgradeableWeapons.Count)
             {
-                UIController.Instance.levelUpButtons[i].ActivateButton(upgradeableWeapons[i]);
                 UIController.Instance.levelUpButtons[i].gameObject.SetActive(true);
+                UIController.Instance.levelUpButtons[i].ActivateButton(upgradeableWeapons[i]);
             }
             else
             {
                 UIController.Instance.levelUpButtons[i].gameObject.SetActive(false);
             }
         }
-
         UIController.Instance.LevelUpPanelOpen();
     }
-    
-    public void AssignWeaponToSlot(Weapon newWeapon)
-    {
-        // Gán vũ khí mới vào ô trống đầu tiên tìm thấy
-        if (weaponSlotW == null) 
-        {
-            weaponSlotW = newWeapon;
-        }
-        else if (weaponSlotE == null) 
-        {
-            weaponSlotE = newWeapon;
-        }
-        else if (weaponSlotR == null) 
-        {
-            weaponSlotR = newWeapon;
-        }
-        
-        newWeapon.gameObject.SetActive(true);
-        activeWeapons.Add(newWeapon);
-        inactiveWeaponsPool.Remove(newWeapon);
-    }
-    
-    void FixedUpdate(){
-        rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed);
-    }
 
-    public void TakeDamage(float damage){
-        if (!isImmune){
+    void FixedUpdate() { rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed); }
+
+    public void TakeDamage(float damage)
+    {
+        if (!isImmune)
+        {
             isImmune = true;
             immunityTimer = immunityDuration;
             playerHealth -= damage;
+            UIController.Instance.ShowDamageFlash();
             UIController.Instance.UpdateHealthSlider();
-            if (playerHealth <= 0){
+            if (playerHealth <= 0)
+            {
                 gameObject.SetActive(false);
                 GameManager.Instance.GameOver();
             }
         }
     }
 
-    public void GetExperience(int experienceToGet){
+    public void GetExperience(int experienceToGet)
+    {
         experience += experienceToGet;
         UIController.Instance.UpdateExperienceSlider();
-        if (currentLevel < maxLevel && experience >= playerLevels[currentLevel - 1]){
+        if (currentLevel < maxLevel && experience >= playerLevels[currentLevel - 1])
+        {
             LevelUp();
         }
     }
-    
-    public void IncreaseMaxHealth(int value){
+
+    public void IncreaseMaxHealth(int value)
+    {
         playerMaxHealth += value;
         playerHealth = playerMaxHealth;
         UIController.Instance.UpdateHealthSlider();
@@ -248,7 +279,8 @@ public class PlayerController : MonoBehaviour
         AudioController.Instance.PlaySound(AudioController.Instance.selectUpgrade);
     }
 
-    public void IncreaseMovementSpeed(float multiplier){
+    public void IncreaseMovementSpeed(float multiplier)
+    {
         moveSpeed *= multiplier;
         UIController.Instance.LevelUpPanelClose();
         AudioController.Instance.PlaySound(AudioController.Instance.selectUpgrade);

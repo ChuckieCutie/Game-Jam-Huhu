@@ -1,63 +1,102 @@
-using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [System.Serializable]
-    public class Wave {
-        public GameObject enemyPrefab;
-        public float spawnTimer;
-        public float spawnInterval;
-        public int enemiesPerWave;
-        public int spawnedEnemyCount;
-    }
-    public List<Wave> waves;
-    public int waveNumber;
-    public Transform minPos;
-    public Transform maxPos;
+    [Tooltip("Danh sách tất cả các đợt spawn, hãy kéo các file SpawnPhase vào đây")]
+    [SerializeField] private List<SpawnPhase> spawnPhases;
 
-    void Update()
+    [Header("Spawn Vị Trí")]
+    [SerializeField] private Transform minPos;
+    [SerializeField] private Transform maxPos;
+
+    [Tooltip("Danh sách tất cả các đợt spawn, hãy kéo các file SpawnPhase vào đây")]
+
+    private void Start()
     {
-        if (PlayerController.Instance.gameObject.activeSelf){
-            waves[waveNumber].spawnTimer += Time.deltaTime;
-            if (waves[waveNumber].spawnTimer >= waves[waveNumber].spawnInterval){
-                waves[waveNumber].spawnTimer = 0;
-                SpawnEnemy();
-            }
-            if (waves[waveNumber].spawnedEnemyCount >= waves[waveNumber].enemiesPerWave){
-                waves[waveNumber].spawnedEnemyCount = 0;
-                if (waves[waveNumber].spawnInterval > 0.15f){
-                    waves[waveNumber].spawnInterval *= 0.8f;
-                }
-                waveNumber++;
-            }
-            if (waveNumber >= waves.Count){
-                waveNumber = 0;
+        // Sắp xếp các đợt theo thời gian bắt đầu để đảm bảo logic chạy đúng
+        spawnPhases = spawnPhases.OrderBy(p => p.startTime).ToList();
+        
+        // Reset lại trạng thái của các phase mỗi khi bắt đầu game
+        foreach (var phase in spawnPhases)
+        {
+            phase.isPhaseActive = false;
+            foreach (var group in phase.enemyGroups)
+            {
+                group.spawnedCount = 0;
+                group.spawnTimer = 0f;
             }
         }
     }
 
-    private void SpawnEnemy(){
-        Instantiate(waves[waveNumber].enemyPrefab, RandomSpawnPoint(), transform.rotation);
-        waves[waveNumber].spawnedEnemyCount++;
+    void Update()
+    {
+        if (!PlayerController.Instance.gameObject.activeSelf) return;
+
+        float currentGameTime = GameManager.Instance.gameTime;
+
+        // Kích hoạt các đợt spawn phù hợp với thời gian hiện tại
+        foreach (var phase in spawnPhases)
+        {
+            if (!phase.isPhaseActive && currentGameTime >= phase.startTime)
+            {
+                phase.isPhaseActive = true;
+                Debug.Log($"Spawning phase started at {phase.startTime}s");
+            }
+
+            if (phase.isPhaseActive)
+            {
+                HandleSpawningForPhase(phase);
+            }
+        }
     }
 
-    private Vector2 RandomSpawnPoint(){
+    private void HandleSpawningForPhase(SpawnPhase phase)
+    {
+        foreach (var group in phase.enemyGroups)
+        {
+            // Nếu đã spawn đủ số lượng thì bỏ qua
+            if (group.spawnedCount >= group.count) continue;
+
+            group.spawnTimer += Time.deltaTime;
+            if (group.spawnTimer >= group.spawnInterval)
+            {
+                group.spawnTimer = 0f;
+                SpawnEnemy(group);
+            }
+        }
+    }
+
+    private void SpawnEnemy(EnemyGroup group)
+    {
+        // Gọi object từ pool thay vì Instantiate
+        GameObject enemyObject = ObjectPooler.Instance.SpawnFromPool(group.enemyPrefab.name, RandomSpawnPoint(), Quaternion.identity);
+
+        if (enemyObject != null)
+        {
+             // Có thể reset máu hoặc các chỉ số khác của enemy ở đây nếu cần
+            Enemy enemyScript = enemyObject.GetComponent<Enemy>();
+            if (enemyScript != null)
+            {
+                enemyScript.ResetStats(); 
+            }
+            group.spawnedCount++;
+        }
+    }
+
+    private Vector2 RandomSpawnPoint()
+    {
         Vector2 spawnPoint;
-        if (Random.Range(0f, 1f) > 0.5){
+        if (Random.Range(0f, 1f) > 0.5f)
+        {
             spawnPoint.x = Random.Range(minPos.position.x, maxPos.position.x);
-            if (Random.Range(0f, 1f) > 0.5){
-                spawnPoint.y = minPos.position.y;
-            } else {
-                spawnPoint.y = maxPos.position.y;
-            }
-        } else {
+            spawnPoint.y = Random.Range(0f, 1f) > 0.5f ? maxPos.position.y : minPos.position.y;
+        }
+        else
+        {
             spawnPoint.y = Random.Range(minPos.position.y, maxPos.position.y);
-            if (Random.Range(0f, 1f) > 0.5){
-                spawnPoint.x = minPos.position.x;
-            } else {
-                spawnPoint.x = maxPos.position.x;
-            }
+            spawnPoint.x = Random.Range(0f, 1f) > 0.5f ? maxPos.position.x : minPos.position.x;
         }
         return spawnPoint;
     }
