@@ -1,12 +1,16 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class AreaWeapon : Weapon
 {
     [SerializeField] private GameObject prefab;
 
-    public void ActivateWeapon()
+    public void ActivateWeapon(bool isOnBeat)
     {
-        Instantiate(prefab, transform.position, transform.rotation, transform);
+        GameObject areaObj = Instantiate(prefab, transform.position, transform.rotation, transform);
+        AreaWeaponPrefab areaScript = areaObj.GetComponent<AreaWeaponPrefab>();
+        if (areaScript != null)
+        {
+            areaScript.Setup(isOnBeat);
+        }
     }
 }

@@ -1,20 +1,20 @@
 using UnityEngine;
 
-// Đảm bảo tên file là MicSpinWeapon.cs
-public class MicSpinWeapon : Weapon 
+public class MicSpinWeapon : Weapon
 {
     public GameObject prefab;
 
-    public void ActivateWeapon()
+    public void ActivateWeapon(bool isOnBeat) // isOnBeat ở đây có thể không cần thiết, nhưng giữ để đồng bộ
     {
-        // Tạo ra một "mic" tại vị trí của người chơi
         GameObject spawnedWeapon = Instantiate(prefab, transform.position, Quaternion.identity);
+        MicSpinProjectile projectileScript = spawnedWeapon.GetComponent<MicSpinProjectile>();
+        if (projectileScript != null)
+        {
+            // "Đăng ký" projectile này với PlayerController
+            PlayerController.Instance.activeMicProjectile = projectileScript;
 
-        // Lấy script của "mic" và gán hướng bay cho nó
-        // Hướng bay được lấy từ hướng di chuyển cuối cùng của người chơi
-        spawnedWeapon.GetComponent<MicSpinProjectile>().SetDirection(PlayerController.Instance.lastMoveDirection);
-        
-        // Bạn có thể thêm âm thanh ném mic ở đây
-        // AudioController.Instance.PlaySound(AudioController.Instance.throwSound);
+            projectileScript.SetDirection(PlayerController.Instance.lastMoveDirection);
+            projectileScript.Setup(this, isOnBeat);
+        }
     }
 }

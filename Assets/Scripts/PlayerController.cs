@@ -6,10 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
 
-    // --- CẤU TRÚC VŨ KHÍ ---
     [Header("Weapon Slots")]
-    public DirectionalWeapon directionalWeapon; // Vũ khí Q (cố định)
-
+    public DirectionalWeapon directionalWeapon;
     private Dictionary<string, Weapon> weaponSlots = new Dictionary<string, Weapon>();
     private Dictionary<string, float> cooldowns = new Dictionary<string, float>();
     private Dictionary<string, KeyCode> keyMappings = new Dictionary<string, KeyCode>();
@@ -41,12 +39,12 @@ public class PlayerController : MonoBehaviour
     private bool isImmune;
     [SerializeField] private float immunityDuration;
     [SerializeField] private float immunityTimer;
+    [HideInInspector] public MicSpinProjectile activeMicProjectile;
 
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); } 
         else { Instance = this; }
-
         InitializeWeaponSlots();
     }
 
@@ -61,17 +59,24 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.UpdateHealthSlider();
         UIController.Instance.UpdateExperienceSlider();
         targetPosition = transform.position;
-
         activeWeapons.Add(directionalWeapon);
         directionalWeapon.gameObject.SetActive(true);
     }
 
     void Update()
     {
-        HandleMovement(); // <<< HÀM NÀY GIỜ ĐÃ CÓ CODE ĐẦY ĐỦ
+        HandleMovement();
         HandleImmunity();
         HandleCooldowns();
         HandleWeaponInputs();
+        if (activeMicProjectile != null)
+    {
+        // Giả sử phím E cũng là phím kích hoạt
+        if (Input.GetKeyDown(KeyCode.E) && RhythmManager.Instance.CheckTiming())
+        {
+            activeMicProjectile.TriggerBoomEffect();
+        }
+    }
     }
 
     void InitializeWeaponSlots()
@@ -79,12 +84,10 @@ public class PlayerController : MonoBehaviour
         weaponSlots.Add("W", null);
         weaponSlots.Add("E", null);
         weaponSlots.Add("R", null);
-
         cooldowns.Add("Q", 0f);
         cooldowns.Add("W", 0f);
         cooldowns.Add("E", 0f);
         cooldowns.Add("R", 0f);
-
         keyMappings.Add("W", KeyCode.W);
         keyMappings.Add("E", KeyCode.E);
         keyMappings.Add("R", KeyCode.R);
@@ -102,12 +105,24 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // <<< PHIÊN BẢN ĐÚNG CỦA HÀM GÂY LỖI
     void HandleWeaponInputs()
     {
         if (Input.GetKeyDown(KeyCode.Q) && IsSkillReady("Q"))
         {
-            directionalWeapon.ActivateWeapon();
-            cooldowns["Q"] = directionalWeapon.stats[directionalWeapon.weaponLevel].cooldown;
+            bool onBeat = RhythmManager.Instance.CheckTiming();
+            directionalWeapon.ActivateWeapon(onBeat);
+            WeaponStats stats = directionalWeapon.stats[directionalWeapon.weaponLevel];
+            if (onBeat)
+            {
+                Debug.Log("<color=lime>Q: ĐÚNG NHỊP!</color>");
+                cooldowns["Q"] = stats.cooldown - stats.cooldownReductionOnBeat;
+            }
+            else
+            {
+                Debug.Log("<color=red>Q: TRƯỢT NHỊP!</color>");
+                cooldowns["Q"] = stats.cooldown;
+            }
             SkillCooldownUI.Instance.StartCooldown("Q", cooldowns["Q"]);
         }
 
@@ -115,47 +130,66 @@ public class PlayerController : MonoBehaviour
         {
             string slotKey = mapping.Key;
             KeyCode keyCode = mapping.Value;
-
             if (Input.GetKeyDown(keyCode) && IsSkillReady(slotKey))
             {
+                bool onBeat = RhythmManager.Instance.CheckTiming();
                 Weapon weapon = weaponSlots[slotKey];
-                ActivateWeaponInSlot(weapon);
-                cooldowns[slotKey] = weapon.stats[weapon.weaponLevel].cooldown;
+                ActivateWeaponInSlot(weapon, onBeat); // Gọi hàm với đủ 2 tham số
+                WeaponStats stats = weapon.stats[weapon.weaponLevel];
+                if (onBeat)
+                {
+                    Debug.Log("<color=lime>" + slotKey + ": ĐÚNG NHỊP!</color>");
+                    cooldowns[slotKey] = stats.cooldown - stats.cooldownReductionOnBeat;
+                }
+                else
+                {
+                    Debug.Log("<color=red>" + slotKey + ": TRƯỢT NHỊP!</color>");
+                    cooldowns[slotKey] = stats.cooldown;
+                }
                 SkillCooldownUI.Instance.StartCooldown(slotKey, cooldowns[slotKey]);
             }
         }
     }
     
+    // <<< PHIÊN BẢN ĐÚNG CỦA HÀM GÂY LỖI
+    void ActivateWeaponInSlot(Weapon weapon, bool isOnBeat)
+    {
+        if (weapon is SlowTrapWeapon slowTrap)
+        {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0;
+            slowTrap.ActivateWeapon(mousePosition, isOnBeat);
+        }
+        else
+        {
+            weapon.SendMessage("ActivateWeapon", isOnBeat, SendMessageOptions.DontRequireReceiver);
+        }
+    }
+
+    #region Các hàm không thay đổi
     public void AssignWeaponToSlot(Weapon newWeapon)
     {
         string assignedSlot = "";
         if (weaponSlots["W"] == null) assignedSlot = "W";
         else if (weaponSlots["E"] == null) assignedSlot = "E";
         else if (weaponSlots["R"] == null) assignedSlot = "R";
-
         if (!string.IsNullOrEmpty(assignedSlot))
         {
             weaponSlots[assignedSlot] = newWeapon;
             newWeapon.gameObject.SetActive(true);
             activeWeapons.Add(newWeapon);
             inactiveWeaponsPool.Remove(newWeapon);
-
             if (SkillCooldownUI.Instance != null)
             {
                 SkillCooldownUI.Instance.AssignWeaponToSlot(newWeapon, assignedSlot);
             }
         }
     }
-
     public float GetRemainingCooldown(string slot)
     {
-        if (cooldowns.ContainsKey(slot.ToUpper()))
-        {
-            return cooldowns[slot.ToUpper()];
-        }
+        if (cooldowns.ContainsKey(slot.ToUpper())) { return cooldowns[slot.ToUpper()]; }
         return 0;
     }
-
     public bool IsSkillReady(string slot)
     {
         string upperSlot = slot.ToUpper();
@@ -164,11 +198,9 @@ public class PlayerController : MonoBehaviour
         if (weaponSlots.ContainsKey(upperSlot)) return weaponSlots[upperSlot] != null;
         return false;
     }
-    
-    // <<< SỬA LỖI: ĐÃ TRẢ LẠI CODE CHO HÀM NÀY
     void HandleMovement()
     {
-        if (Input.GetMouseButtonDown(1)) 
+        if (Input.GetMouseButtonDown(1))
         {
             targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             targetPosition.z = transform.position.z;
@@ -187,27 +219,11 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("moving", false);
         }
     }
-    
-    void ActivateWeaponInSlot(Weapon weapon)
-    {
-        if (weapon is SlowTrapWeapon slowTrap)
-        {
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            mousePosition.z = 0;
-            slowTrap.ActivateWeapon(mousePosition);
-        }
-        else 
-        {
-            weapon.SendMessage("ActivateWeapon", SendMessageOptions.DontRequireReceiver);
-        }
-    }
-
     void HandleImmunity()
     {
         if (immunityTimer > 0) { immunityTimer -= Time.deltaTime; }
         else { isImmune = false; }
     }
-
     public void LevelUp()
     {
         if (currentLevel >= maxLevel) return;
@@ -215,17 +231,13 @@ public class PlayerController : MonoBehaviour
         currentLevel++;
         UIController.Instance.UpdateExperienceSlider();
         upgradeableWeapons.Clear();
-        
         var upgradableActiveWeapons = activeWeapons.Where(w => w.weaponLevel < w.stats.Count - 1).ToList();
-        
         if ((weaponSlots["W"] == null || weaponSlots["E"] == null || weaponSlots["R"] == null) && inactiveWeaponsPool.Any())
         {
             upgradeableWeapons.AddRange(inactiveWeaponsPool);
         }
-        
         upgradeableWeapons.AddRange(upgradableActiveWeapons);
         upgradeableWeapons = upgradeableWeapons.OrderBy(x => Random.value).ToList();
-
         for (int i = 0; i < UIController.Instance.levelUpButtons.Length; i++)
         {
             if (i < upgradeableWeapons.Count)
@@ -240,9 +252,7 @@ public class PlayerController : MonoBehaviour
         }
         UIController.Instance.LevelUpPanelOpen();
     }
-
     void FixedUpdate() { rb.velocity = new Vector3(playerMoveDirection.x * moveSpeed, playerMoveDirection.y * moveSpeed); }
-
     public void TakeDamage(float damage)
     {
         if (!isImmune)
@@ -259,7 +269,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
     public void GetExperience(int experienceToGet)
     {
         experience += experienceToGet;
@@ -269,7 +278,6 @@ public class PlayerController : MonoBehaviour
             LevelUp();
         }
     }
-
     public void IncreaseMaxHealth(int value)
     {
         playerMaxHealth += value;
@@ -278,11 +286,11 @@ public class PlayerController : MonoBehaviour
         UIController.Instance.LevelUpPanelClose();
         AudioController.Instance.PlaySound(AudioController.Instance.selectUpgrade);
     }
-
     public void IncreaseMovementSpeed(float multiplier)
     {
         moveSpeed *= multiplier;
         UIController.Instance.LevelUpPanelClose();
         AudioController.Instance.PlaySound(AudioController.Instance.selectUpgrade);
     }
+    #endregion
 }

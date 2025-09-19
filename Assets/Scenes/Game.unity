@@ -122,6 +122,255 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &19166145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 19166149}
+  - component: {fileID: 19166148}
+  - component: {fileID: 19166147}
+  - component: {fileID: 19166146}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!82 &19166146
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19166145}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &19166147
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19166145}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &19166148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19166145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad6a29f850458946967283195188d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 19166147}
+  sfxSource: {fileID: 19166146}
+  phase1Music: {fileID: 8300000, guid: 5a44f69f1933a6b4aa056868c21f0deb, type: 3}
+  phase1BPM: 176
+  bossIntro: {fileID: 8300000, guid: 0c53d226af77e7043bfafe9ca4cd728a, type: 3}
+  bossIntroBPM: 141
+  bossFightStart: {fileID: 8300000, guid: 27f485677af9f7c4d84949ec73809dcb, type: 3}
+  bossFightLoop: {fileID: 8300000, guid: 21ecdf1e51f4b3f40a483f8ceaf39911, type: 3}
+  bossFightBPM: 141
+  bossOutro: {fileID: 8300000, guid: 5f9296c693615784fb9063381818b0bd, type: 3}
+  bossOutroBPM: 141
+--- !u!4 &19166149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19166145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.074909, y: 4.703972, z: -0.16249162}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &25692532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1080,6 +1329,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 0
     description: Bass Drop
+    boomDamage: 6
+    cooldownReductionOnBeat: 0.5
   - cooldown: 4
     duration: 1
     damage: 4
@@ -1089,6 +1340,8 @@ MonoBehaviour:
     pierce: 1
     knockbackForce: 0.5
     description: Massive Damage Boost +33%
+    boomDamage: 8
+    cooldownReductionOnBeat: 0.75
   - cooldown: 4
     duration: 1
     damage: 5
@@ -1098,6 +1351,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 1
     description: Massive Damage Boost +33%
+    boomDamage: 10
+    cooldownReductionOnBeat: 1
   - cooldown: 3.5
     duration: 1
     damage: 6
@@ -1107,6 +1362,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 1.5
     description: Massive Damage Boost +20%,and Cooldown Reduction 14%
+    boomDamage: 12
+    cooldownReductionOnBeat: 1.25
   - cooldown: 3
     duration: 1
     damage: 7
@@ -1116,6 +1373,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 2
     description: Massive Damage Boost +14%,and Cooldown Reduction 14%
+    boomDamage: 14
+    cooldownReductionOnBeat: 1.5
   weaponImage: {fileID: 2781533676904308770, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Hungry shadow follows you around
   prefab: {fileID: 3260703539074801876, guid: 8a0af0142b3e0ed42a46858c826bc970, type: 3}
@@ -2934,7 +3193,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 525088892}
-  - component: {fileID: 525088891}
+  - component: {fileID: 525088893}
   m_Layer: 0
   m_Name: RhythmManager
   m_TagString: Untagged
@@ -2942,7 +3201,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &525088891
+--- !u!4 &525088892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 525088890}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &525088893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2956,24 +3230,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm: 120
   timingWindow: 0.15
-  OnBeat:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &525088892
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 525088890}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5273659, y: 0.42446944, z: -0.12906706}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &529351794
 GameObject:
   m_ObjectHideFlags: 0
@@ -3224,6 +3480,118 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5446745974171355662, guid: 68607e923385afa4ca988b88bed17c62, type: 3}
   m_PrefabInstance: {fileID: 584235559}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &586436080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 586436081}
+  - component: {fileID: 586436084}
+  - component: {fileID: 586436083}
+  - component: {fileID: 586436082}
+  m_Layer: 5
+  m_Name: BeatIndicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &586436081
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586436080}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1403413558}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &586436082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586436080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42af73210124b5341a89718ad3359212, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pulseCurve:
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 1
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  pulseDuration: 0.2
+  rectTransform: {fileID: 0}
+  startScale: {x: 0, y: 0, z: 0}
+--- !u!114 &586436083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586436080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 574745811, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &586436084
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586436080}
+  m_CullTransparentMesh: 1
 --- !u!1 &593648987
 GameObject:
   m_ObjectHideFlags: 0
@@ -4748,6 +5116,8 @@ MonoBehaviour:
     pierce: 1
     knockbackForce: 2
     description: Slow down the enemy
+    boomDamage: 6
+    cooldownReductionOnBeat: 1
   - cooldown: 6
     duration: 2
     damage: 2
@@ -4757,6 +5127,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 3
     description: Slow more
+    boomDamage: 8
+    cooldownReductionOnBeat: 1.5
   - cooldown: 5.5
     duration: 2
     damage: 3
@@ -4766,6 +5138,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 4
     description: Slowdown the enemy 10%, Damage +33.33%. cooldown -8.3%
+    boomDamage: 10
+    cooldownReductionOnBeat: 2
   - cooldown: 5
     duration: 3
     damage: 4
@@ -4775,6 +5149,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 5
     description: Slowdown the enemy 10%, Damage +33.33%. cooldown -8.3%
+    boomDamage: 12
+    cooldownReductionOnBeat: 2.5
   - cooldown: 4.5
     duration: 3
     damage: 4.5
@@ -4784,6 +5160,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 6
     description: Slowdown the enemy 10%, Damage +33.33%. cooldown -12.5%
+    boomDamage: 15
+    cooldownReductionOnBeat: 3
   weaponImage: {fileID: -1822811771, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
   basicDescription: SLow dowm the enemy
   prefab: {fileID: 8384538471753497255, guid: 2e07b73332366964ebd6ad5c032af12e, type: 3}
@@ -50849,6 +51227,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992189265}
   m_CullTransparentMesh: 1
+--- !u!1 &1001016761
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1001016763}
+  - component: {fileID: 1001016762}
+  m_Layer: 0
+  m_Name: EnvironmentPulse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1001016762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001016761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875fe89fd037b544ca24033dfbf3bf30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visualsToPulse:
+  - {fileID: 680186249}
+  pulseScaleAmount: 1.05
+  pulseDuration: 0.1
+--- !u!4 &1001016763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001016761}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.5974081, y: -1.8956931, z: -0.09812917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1030864003
 GameObject:
   m_ObjectHideFlags: 0
@@ -51349,6 +51775,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 1
     description: 'level 1: 2.5 dmg'
+    boomDamage: 5
+    cooldownReductionOnBeat: 0
   - cooldown: 0
     duration: 4
     damage: 3
@@ -51358,6 +51786,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 1
     description: +0.5dmg
+    boomDamage: 6
+    cooldownReductionOnBeat: 0
   - cooldown: 0
     duration: 4
     damage: 3.5
@@ -51367,6 +51797,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 1
     description: +0.5 dmg
+    boomDamage: 7
+    cooldownReductionOnBeat: 0
   - cooldown: 0
     duration: 4
     damage: 4
@@ -51376,6 +51808,8 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 1
     description: +0.5 dmg
+    boomDamage: 8
+    cooldownReductionOnBeat: 0
   - cooldown: 0
     duration: 4
     damage: 4.5
@@ -51385,9 +51819,12 @@ MonoBehaviour:
     pierce: 0
     knockbackForce: 2
     description: +0.5 dmg
+    boomDamage: 9
+    cooldownReductionOnBeat: 0
   weaponImage: {fileID: 7449052399205803541, guid: e6cd7238b86f2334bb6113906eadc105, type: 3}
   basicDescription: Shoot in walking direction
-  prefab: {fileID: 2392642272803141700, guid: d658f6c642e560441a0be35645356bd1, type: 3}
+  normalAttackPrefab: {fileID: 2392642272803141700, guid: d658f6c642e560441a0be35645356bd1, type: 3}
+  spinAttackPrefab: {fileID: 2719928884137381462, guid: fa68d8f4e86d2904a9ef7411745f06d6, type: 3}
 --- !u!1 &1095914941
 GameObject:
   m_ObjectHideFlags: 0
@@ -52564,6 +53001,7 @@ RectTransform:
   - {fileID: 1048826564}
   - {fileID: 504353133}
   - {fileID: 323237152}
+  - {fileID: 586436081}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -54331,6 +54769,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 4
     description: MicSpin
+    boomDamage: 5
+    cooldownReductionOnBeat: 0.5
   - cooldown: 5
     duration: 2
     damage: 2.5
@@ -54340,6 +54780,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 4.5
     description: Massive damage +20%
+    boomDamage: 6
+    cooldownReductionOnBeat: 0.75
   - cooldown: 4.5
     duration: 2
     damage: 3
@@ -54349,6 +54791,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 5
     description: Massive damage +16.7%, Cooldown time reduces 10%
+    boomDamage: 7
+    cooldownReductionOnBeat: 1
   - cooldown: 4
     duration: 2
     damage: 4
@@ -54358,6 +54802,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 5.5
     description: "Massive damage +25%, Cooldown time re\u0111uce + 11.11%"
+    boomDamage: 8
+    cooldownReductionOnBeat: 1.25
   - cooldown: 4
     duration: 2
     damage: 5.5
@@ -54367,6 +54813,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 6
     description: Massive Damage + 27.27%
+    boomDamage: 9
+    cooldownReductionOnBeat: 1.5
   weaponImage: {fileID: -265851876, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
   basicDescription: "Mic Spin t\u1EA1m "
   prefab: {fileID: 942451037518574939, guid: 4e59edc27c85b714895dc57b2e2e1df1, type: 3}
@@ -54959,6 +55407,8 @@ MonoBehaviour:
     pierce: 1
     knockbackForce: 1
     description: Resonant Orb
+    boomDamage: 8
+    cooldownReductionOnBeat: 1
   - cooldown: 7.5
     duration: 3
     damage: 5
@@ -54968,6 +55418,8 @@ MonoBehaviour:
     pierce: 1
     knockbackForce: 1
     description: Damage+20%, cooldown time - 6.25%
+    boomDamage: 9
+    cooldownReductionOnBeat: 1.5
   - cooldown: 7
     duration: 3
     damage: 6
@@ -54977,6 +55429,8 @@ MonoBehaviour:
     pierce: 1
     knockbackForce: 2
     description: Damage+16.7%, cooldown time - 6.67%
+    boomDamage: 10
+    cooldownReductionOnBeat: 2
   - cooldown: 6.5
     duration: 3
     damage: 7.5
@@ -54986,6 +55440,8 @@ MonoBehaviour:
     pierce: 1
     knockbackForce: 3
     description: Damage+20%, cooldown time - 7.14%
+    boomDamage: 11
+    cooldownReductionOnBeat: 2.5
   - cooldown: 6
     duration: 3
     damage: 9
@@ -54995,6 +55451,8 @@ MonoBehaviour:
     pierce: 2
     knockbackForce: 4
     description: Damage+20%, cooldown time - 7.69%
+    boomDamage: 12
+    cooldownReductionOnBeat: 3
   weaponImage: {fileID: 740078143, guid: a5a1a5e75cc56904cbede2214392259d, type: 3}
   basicDescription: Bounce
   prefab: {fileID: 2928392060004502520, guid: 4f2f7a24a8560a94baaf5b5c9935ef90, type: 3}
@@ -94071,6 +94529,7 @@ MonoBehaviour:
   animator: {fileID: 2129728288}
   immunityDuration: 1
   immunityTimer: 0
+  activeMicProjectile: {fileID: 0}
 --- !u!70 &2129728293
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -94181,3 +94640,5 @@ SceneRoots:
   - {fileID: 680186250}
   - {fileID: 1200994643}
   - {fileID: 525088892}
+  - {fileID: 19166149}
+  - {fileID: 1001016763}

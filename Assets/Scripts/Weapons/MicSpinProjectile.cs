@@ -1,49 +1,92 @@
+using System.Collections;
 using UnityEngine;
 
-// Tên file: MicSpinProjectile.cs
 public class MicSpinProjectile : MonoBehaviour
 {
-    private float damage;
+    [Header("Boom Effect")]
+    [Tooltip("Prefab của vụ nổ sẽ được tạo ra dọc đường bay")]
+    [SerializeField] private GameObject explosionPrefab;
+    [Tooltip("Khoảng thời gian giữa các vụ nổ")]
+    [SerializeField] private float explosionInterval = 0.15f;
+
+    // Các chỉ số được truyền vào
     private float speed;
-    private float knockback; // <<< THÊM MỚI
     private Vector3 direction;
     private float lifetime = 1f;
+    private float normalDamage;
+    private float boomDamage;
+    private float knockback;
+    private bool wasOnBeat;
 
+    public void Setup(MicSpinWeapon weapon, bool isOnBeat)
+    {
+        this.wasOnBeat = isOnBeat;
+        WeaponStats stats = weapon.stats[weapon.weaponLevel];
+        speed = stats.speed;
+        normalDamage = stats.damage;
+        boomDamage = stats.boomDamage;
+        knockback = stats.knockbackForce;
+    }
+
+    public void SetDirection(Vector3 dir)
+    {
+        direction = dir.normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
+    
     void Start()
     {
-        // Tìm vũ khí MicSpinWeapon trong các vũ khí đang có của người chơi để lấy chỉ số
-        foreach (var weapon in PlayerController.Instance.activeWeapons)
-        {
-            if (weapon is MicSpinWeapon micSpinWeapon)
-            {
-                WeaponStats stats = micSpinWeapon.stats[micSpinWeapon.weaponLevel];
-                damage = stats.damage;
-                speed = stats.speed;
-                knockback = stats.knockbackForce; // <<< THÊM MỚI
-                break;
-            }
-        }
-        
-        // Hẹn giờ tự hủy sau lifetime
         Destroy(gameObject, lifetime);
     }
 
     void Update()
     {
-        // Di chuyển viên đạn theo hướng đã định
         transform.position += direction * speed * Time.deltaTime;
     }
-
-    // Hàm này được gọi từ MicSpinWeapon.cs để set hướng bay
-    public void SetDirection(Vector3 dir)
+    
+    // <<< HÀM MỚI: Được gọi từ PlayerController
+    public void TriggerBoomEffect()
     {
-        direction = dir.normalized;
-        // Xoay viên đạn theo hướng di chuyển
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        Debug.Log("Mic Spin Boom Activated!");
+        // Không gây sát thương khi va chạm nữa
+        GetComponent<Collider2D>().enabled = false;
+        // Bắt đầu chuỗi nổ
+        StartCoroutine(BoomEffectRoutine());
     }
 
-    // Xử lý va chạm với kẻ địch
+    private IEnumerator BoomEffectRoutine()
+    {
+        // Vòng lặp để tạo ra các vụ nổ cho đến hết thời gian tồn tại
+        while(true)
+        {
+            if (explosionPrefab != null)
+            {
+                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                // Gây sát thương tại vị trí vụ nổ
+                DealExplosionDamage();
+            }
+            yield return new WaitForSeconds(explosionInterval);
+        }
+    }
+
+    private void DealExplosionDamage()
+    {
+        Collider2D[] enemies = Physics2D.OverlapCircleAll(transform.position, 1.5f); // Bán kính vụ nổ
+        foreach (var enemyCollider in enemies)
+        {
+            if (enemyCollider.CompareTag("Enemy"))
+            {
+                Enemy enemy = enemyCollider.GetComponent<Enemy>();
+                if (enemy != null)
+                {
+                    // Vụ nổ luôn gây boom damage
+                    enemy.TakeDamage(boomDamage, knockback);
+                }
+            }
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemy"))
@@ -51,10 +94,17 @@ public class MicSpinProjectile : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                // <<< THAY ĐỔI: Truyền thêm knockback
-                enemy.TakeDamage(damage, knockback);
+                // Gây sát thương bình thường nếu không kích hoạt boom
+                enemy.TakeDamage(normalDamage, knockback);
             }
-            // Viên đạn bay xuyên qua kẻ địch
+        }
+    }
+    
+    void OnDisable()
+    {
+        if (PlayerController.Instance != null && PlayerController.Instance.activeMicProjectile == this)
+        {
+            PlayerController.Instance.activeMicProjectile = null;
         }
     }
 }

@@ -6,29 +6,38 @@ public class SlowTrapPrefab : MonoBehaviour
     private float slowAmount;
     private float slowDuration;
     private float trapDuration;
-    private float damage;
-    private float knockbackForce; // <<< THÊM MỚI
+    
+    // Các chỉ số
+    private float normalDamage;
+    private float boomDamage;
+    private float knockbackForce;
+    private bool wasOnBeat;
 
     public void SetWeapon(SlowTrapWeapon weapon)
     {
         this.weapon = weapon;
     }
 
+    public void Setup(bool isOnBeat)
+    {
+        wasOnBeat = isOnBeat;
+    }
+
     void Start()
     {
         if (weapon == null)
         {
-            Debug.LogError("Weapon reference not set on SlowTrapPrefab!");
             Destroy(gameObject);
             return;
         }
 
-        WeaponStats currentStats = weapon.stats[weapon.weaponLevel];
-        damage = currentStats.damage;
-        slowAmount = currentStats.amount;
-        slowDuration = currentStats.speed;
-        trapDuration = currentStats.duration;
-        knockbackForce = currentStats.knockbackForce; // <<< THÊM MỚI
+        WeaponStats stats = weapon.stats[weapon.weaponLevel];
+        slowAmount = stats.amount;
+        slowDuration = stats.speed;
+        trapDuration = stats.duration;
+        normalDamage = stats.damage;
+        boomDamage = stats.boomDamage;
+        knockbackForce = stats.knockbackForce;
 
         Destroy(gameObject, trapDuration);
     }
@@ -40,10 +49,18 @@ public class SlowTrapPrefab : MonoBehaviour
             Enemy enemy = other.GetComponent<Enemy>();
             if (enemy != null)
             {
-                // Gây sát thương và hiệu ứng
-                // <<< THAY ĐỔI: Truyền thêm knockbackForce
-                enemy.TakeDamage(damage, knockbackForce);
-                enemy.ApplySlow(slowAmount, slowDuration);
+                if(wasOnBeat)
+                {
+                    // ĐÚNG NHỊP: Gây choáng và Boom Damage
+                    enemy.Stun(1.5f); // <<< THAY ĐỔI LỚN
+                    enemy.TakeDamage(boomDamage, knockbackForce);
+                }
+                else
+                {
+                    // TRƯỢT NHỊP: Gây sát thương và làm chậm như cũ
+                    enemy.TakeDamage(normalDamage, knockbackForce);
+                    enemy.ApplySlow(slowAmount, slowDuration);
+                }
             }
         }
     }

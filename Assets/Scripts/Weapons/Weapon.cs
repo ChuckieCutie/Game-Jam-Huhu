@@ -30,4 +30,7 @@ public class WeaponStats {
     public int pierce;
     public float knockbackForce;  
     public string description;
+        [Header("Boom Effect")] // <<< THÊM MỚI
+    public float boomDamage; // <<< THÊM MỚI
+    public float cooldownReductionOnBeat; 
 }

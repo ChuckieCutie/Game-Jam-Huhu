@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public float gameTime;
     public bool gameActive;
+    private bool hasStartedPhase2 = false; 
 
     void Awake(){
         if (Instance != null && Instance != this){
@@ -24,6 +25,12 @@ public class GameManager : MonoBehaviour
         if (gameActive){
             gameTime += Time.deltaTime;
             UIController.Instance.UpdateTimer(gameTime);
+
+            if (!hasStartedPhase2 && gameTime >= 300f) 
+        {
+            hasStartedPhase2 = true;
+            MusicManager.Instance.StartPhase2Transition();
+        }
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)){
                 Pause();

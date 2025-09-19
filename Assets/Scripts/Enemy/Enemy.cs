@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     [Header("Effects")]
     [SerializeField] private float knockbackDuration; // <<< SỬA LỖI 3: Đảm bảo biến này được khai báo (và đổi tên từ pushTime)
     [SerializeField] private GameObject destroyEffect;
+        [Header("Boss Settings")] // <<< THÊM MỚI
+    public bool isFinalBoss = false;
 
     // --- Private Variables ---
     private Rigidbody2D rb;
@@ -25,7 +27,8 @@ public class Enemy : MonoBehaviour
     private bool isSlowed;
     private float pushCounter;
     private Coroutine updateDirectionCoroutine;
-    private float currentKnockbackForce; // <<< SỬA LỖI 1 & 2: Đảm bảo biến này được khai báo
+    private float currentKnockbackForce; 
+    private bool isStunned = false;// <<< SỬA LỖI 1 & 2: Đảm bảo biến này được khai báo
 
     void Awake()
     {
@@ -48,6 +51,11 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
+                if (isStunned) // <<< THÊM MỚI
+        {
+            rb.velocity = Vector2.zero;
+            return; // Nếu bị choáng, không làm gì cả
+        }
         if (!PlayerController.Instance.gameObject.activeSelf)
         {
             rb.velocity = Vector2.zero;
@@ -72,7 +80,7 @@ public class Enemy : MonoBehaviour
     {
         while (true)
         {
-            if (PlayerController.Instance.gameObject.activeSelf)
+            if (!isStunned)
             {
                 direction = (PlayerController.Instance.transform.position - transform.position).normalized;
                 spriteRenderer.flipX = PlayerController.Instance.transform.position.x > transform.position.x;
@@ -85,12 +93,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    
+    public void Stun(float duration)
+    {
+        StartCoroutine(StunRoutine(duration));
+    }
+
+    private IEnumerator StunRoutine(float duration)
+    {
+        isStunned = true;
+        // Có thể thêm hiệu ứng hình ảnh (ví dụ: các ngôi sao xoay trên đầu) ở đây
+        yield return new WaitForSeconds(duration);
+        isStunned = false;
+    }
+
+
     public void ResetStats()
     {
         health = maxHealth;
         isSlowed = false;
         currentMoveSpeed = moveSpeed;
         pushCounter = 0;
+        isStunned = false;
     }
 
     void OnCollisionStay2D(Collision2D collision)
@@ -101,7 +125,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damageAmount, float knockbackForce)
+     public void TakeDamage(float damageAmount, float knockbackForce)
     {
         health -= damageAmount;
         DamageNumberController.Instance.CreateNumber(damageAmount, transform.position);
@@ -111,13 +135,20 @@ public class Enemy : MonoBehaviour
         
         if (health <= 0)
         {
+            // <<< THÊM MỚI: Kiểm tra nếu đây là trùm cuối
+            if (isFinalBoss)
+            {
+                // Chỉ gọi MusicManager khi trùm cuối chết
+                MusicManager.Instance.OnBossDefeated();
+            }
+
             PlayerController.Instance.GetExperience(experienceToGive);
             if(destroyEffect != null) Instantiate(destroyEffect, transform.position, transform.rotation);
             AudioController.Instance.PlayModifiedSound(AudioController.Instance.enemyDie);
-            gameObject.SetActive(false);
+            
+            gameObject.SetActive(false); // Trả về pool
         }
     }
-
     public void ApplySlow(float slowAmount, float duration)
     {
         if (!isSlowed)
